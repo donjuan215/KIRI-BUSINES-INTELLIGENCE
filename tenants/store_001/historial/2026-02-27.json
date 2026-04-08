@@ -1,0 +1,258 @@
+{
+  "fecha": "2026-02-27",
+  "hora_guardado": "08:20 AM",
+  "business_name": "Don Juan Joyeria",
+  "products": {
+    "1": {
+      "name": "cadena cartier",
+      "price": 7000000.0,
+      "cost": 5000000.0,
+      "stock": 6,
+      "sold": 0
+    },
+    "2": {
+      "name": "pulsera N8H diamantada",
+      "price": 1000000.0,
+      "cost": 750000.0,
+      "stock": 1,
+      "sold": 1
+    },
+    "3": {
+      "name": "tobillera dama lisa",
+      "price": 600000.0,
+      "cost": 420000.0,
+      "stock": 8,
+      "sold": 0
+    },
+    "4": {
+      "name": "PULSERA TEJIDA INFINITO",
+      "price": 520000.0,
+      "cost": 350000.0,
+      "stock": 5,
+      "sold": 2
+    },
+    "5": {
+      "name": "PULSERA NIÑA FLOR",
+      "price": 350000.0,
+      "cost": 210000.0,
+      "stock": 0,
+      "sold": 3
+    },
+    "6": {
+      "name": "PULSERA GUERRERO",
+      "price": 1800000.0,
+      "cost": 650000.0,
+      "stock": 3,
+      "sold": 4
+    },
+    "7": {
+      "name": "PULSERA NEO ROJA",
+      "price": 1200000.0,
+      "cost": 680000.0,
+      "stock": 1,
+      "sold": 1
+    },
+    "8": {
+      "name": "PULSERA NEGRA DIAMANTADA",
+      "price": 890000.0,
+      "cost": 620000.0,
+      "stock": 4,
+      "sold": 2
+    },
+    "9": {
+      "name": "PULSERA LISA N9",
+      "price": 2000000.0,
+      "cost": 1200000.0,
+      "stock": 0,
+      "sold": 3
+    },
+    "10": {
+      "name": "ANILLO ROLEX",
+      "price": 3800000.0,
+      "cost": 2500000.0,
+      "stock": 2,
+      "sold": 1
+    },
+    "11": {
+      "name": "PULSERA LISA HERRAJE",
+      "price": 900000.0,
+      "cost": 650000.0,
+      "stock": 0,
+      "sold": 2
+    },
+    "12": {
+      "name": "ANILLO TEJIDO",
+      "price": 540000.0,
+      "cost": 250000.0,
+      "stock": 9,
+      "sold": 0
+    },
+    "13": {
+      "name": "pulsera cartier",
+      "price": 500000.0,
+      "cost": 300000.0,
+      "stock": 8,
+      "sold": 1
+    }
+  },
+  "sales": 20,
+  "historial_ventas": [
+    {
+      "hora": "09:00 PM",
+      "items": [
+        {
+          "nombre": "PULSERA TEJIDA INFINITO",
+          "cantidad": 1,
+          "precio": 520000.0,
+          "subtotal": 520000.0
+        },
+        {
+          "nombre": "PULSERA NIÑA FLOR",
+          "cantidad": 1,
+          "precio": 350000.0,
+          "subtotal": 350000.0
+        },
+        {
+          "nombre": "PULSERA GUERRERO",
+          "cantidad": 1,
+          "precio": 1800000.0,
+          "subtotal": 1800000.0
+        }
+      ],
+      "total": 2670000.0
+    },
+    {
+      "hora": "09:00 PM",
+      "items": [
+        {
+          "nombre": "PULSERA NEO ROJA",
+          "cantidad": 1,
+          "precio": 1200000.0,
+          "subtotal": 1200000.0
+        },
+        {
+          "nombre": "ANILLO ROLEX",
+          "cantidad": 1,
+          "precio": 3800000.0,
+          "subtotal": 3800000.0
+        },
+        {
+          "nombre": "PULSERA LISA HERRAJE",
+          "cantidad": 1,
+          "precio": 900000.0,
+          "subtotal": 900000.0
+        }
+      ],
+      "total": 5900000.0
+    },
+    {
+      "hora": "09:00 PM",
+      "items": [
+        {
+          "nombre": "PULSERA NIÑA FLOR",
+          "cantidad": 1,
+          "precio": 350000.0,
+          "subtotal": 350000.0
+        },
+        {
+          "nombre": "PULSERA GUERRERO",
+          "cantidad": 1,
+          "precio": 1800000.0,
+          "subtotal": 1800000.0
+        },
+        {
+          "nombre": "PULSERA LISA N9",
+          "cantidad": 1,
+          "precio": 2000000.0,
+          "subtotal": 2000000.0
+        },
+        {
+          "nombre": "pulsera cartier",
+          "cantidad": 1,
+          "precio": 500000.0,
+          "subtotal": 500000.0
+        }
+      ],
+      "total": 4650000.0
+    },
+    {
+      "hora": "09:00 PM",
+      "items": [
+        {
+          "nombre": "PULSERA NIÑA FLOR",
+          "cantidad": 1,
+          "precio": 350000.0,
+          "subtotal": 350000.0
+        },
+        {
+          "nombre": "PULSERA GUERRERO",
+          "cantidad": 1,
+          "precio": 1800000.0,
+          "subtotal": 1800000.0
+        }
+      ],
+      "total": 2150000.0
+    },
+    {
+      "hora": "09:01 PM",
+      "items": [
+        {
+          "nombre": "pulsera N8H diamantada",
+          "cantidad": 1,
+          "precio": 1000000.0,
+          "subtotal": 1000000.0
+        },
+        {
+          "nombre": "PULSERA TEJIDA INFINITO",
+          "cantidad": 1,
+          "precio": 520000.0,
+          "subtotal": 520000.0
+        },
+        {
+          "nombre": "PULSERA GUERRERO",
+          "cantidad": 1,
+          "precio": 1800000.0,
+          "subtotal": 1800000.0
+        },
+        {
+          "nombre": "PULSERA NEGRA DIAMANTADA",
+          "cantidad": 1,
+          "precio": 890000.0,
+          "subtotal": 890000.0
+        },
+        {
+          "nombre": "PULSERA LISA N9",
+          "cantidad": 1,
+          "precio": 2000000.0,
+          "subtotal": 2000000.0
+        }
+      ],
+      "total": 6210000.0
+    },
+    {
+      "hora": "09:01 PM",
+      "items": [
+        {
+          "nombre": "PULSERA NEGRA DIAMANTADA",
+          "cantidad": 1,
+          "precio": 890000.0,
+          "subtotal": 890000.0
+        },
+        {
+          "nombre": "PULSERA LISA N9",
+          "cantidad": 1,
+          "precio": 2000000.0,
+          "subtotal": 2000000.0
+        },
+        {
+          "nombre": "PULSERA LISA HERRAJE",
+          "cantidad": 1,
+          "precio": 900000.0,
+          "subtotal": 900000.0
+        }
+      ],
+      "total": 3790000.0
+    }
+  ],
+  "daily_goal": 50000000.0
+}

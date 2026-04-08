@@ -1,0 +1,21 @@
+{
+  "name": "Tienda básica",
+  "description": "Automatizaciones esenciales para cualquier negocio pequeño",
+  "rules": [
+    {
+      "event": "sale_registered",
+      "condition": "sales >= 1",
+      "action": "log_sale"
+    },
+    {
+      "event": "sale_registered",
+      "condition": "sales >= 5",
+      "action": "notify_good_sales"
+    },
+    {
+      "event": "system_started",
+      "condition": "start_count >= 1",
+      "action": "log_start"
+    }
+  ]
+}

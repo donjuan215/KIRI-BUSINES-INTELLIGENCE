@@ -1,6 +1,13 @@
-def main():
-    print("sistema iniciado correctamente")
+from core.engine import Engine
 
-if __name__ == "__main__":
-    main()
-    
+# Crear instancia del negocio
+store = Engine("store_001")
+
+# Eventos de prueba
+store.handle_event("system_started")
+
+# Registrar venta con payload
+store.handle_event("sale_registered", {"qty": 2})
+
+# Chequeo diario
+store.handle_event("daily_check")

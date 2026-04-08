@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kiri — Inventario</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f4f6f9;
+    padding:40px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th, td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+}
+
+th{
+    background:#111;
+    color:white;
+}
+
+tr:hover{
+    background:#f5f5f5;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    background:#111;
+    color:white;
+    padding:10px 16px;
+    border-radius:8px;
+    text-decoration:none;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h2>📊 Inventario de productos</h2>
+
+<table>
+<tr>
+<th>Producto</th>
+<th>Precio</th>
+<th>Costo</th>
+<th>Utilidad</th>
+<th>Stock</th>
+</tr>
+
+{% for p in products %}
+<tr>
+<td>{{p.name}}</td>
+<td>${{p.price}}</td>
+<td>${{p.cost}}</td>
+<td>${{p.price - p.cost}}</td>
+<td>{{p.stock}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<a class="btn" href="/add_product">Agregar producto</a>
+<a class="btn" href="/dashboard">Volver al panel</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYRI — Historial</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f7fa; --bg2: #ffffff; --bg3: #f0f2f5;
+    --border: #e4e8ef; --border2: #d0d7e3;
+    --accent: #00966a; --accent2: #0052cc; --accent3: #d32f2f; --accent4: #e65100;
+    --text: #0f1923; --text2: #4a5568; --text3: #9aa5b4;
+    --sidebar: #0f1923; --sidebar-text: #e8edf2; --sidebar-text2: #7a8a99; --sidebar-border: #1e2730;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 224px; background: var(--sidebar); border-right: 1px solid var(--sidebar-border); display: flex; flex-direction: column; z-index: 100; }
+  .logo-area { padding: 28px 24px 22px; border-bottom: 1px solid var(--sidebar-border); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -1px; color: var(--sidebar-text); }
+  .logo span { color: #00e5a0; }
+  .logo-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--sidebar-text2); letter-spacing: 2.5px; margin-top: 5px; text-transform: uppercase; }
+  .store-badge { margin: 14px 16px; padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--sidebar-border); border-radius: 10px; display: flex; align-items: center; gap: 10px; }
+  .store-dot { width: 7px; height: 7px; border-radius: 50%; background: #00e5a0; box-shadow: 0 0 8px #00e5a0; animation: pulse 2s infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .store-name { font-size: 12px; font-weight: 500; color: var(--sidebar-text); }
+  .nav { padding: 6px 12px; flex: 1; }
+  .nav-section { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--sidebar-text2); text-transform: uppercase; padding: 16px 10px 6px; }
+  .nav-item { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border-radius: 8px; cursor: pointer; transition: all 0.18s; color: var(--sidebar-text2); font-size: 13px; font-weight: 500; text-decoration: none; margin-bottom: 2px; }
+  .nav-item:hover { background: rgba(255,255,255,0.06); color: var(--sidebar-text); }
+  .nav-item.active { background: rgba(0,229,160,0.1); color: #00e5a0; border: 1px solid rgba(0,229,160,0.15); }
+  .sidebar-bottom { padding: 14px; border-top: 1px solid var(--sidebar-border); }
+  .logout-btn { display: flex; align-items: center; gap: 8px; padding: 10px 13px; border-radius: 8px; color: #ff6b6b; font-size: 12px; font-weight: 600; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,107,107,0.15); background: rgba(255,107,107,0.06); transition: all 0.2s; }
+  .logout-btn:hover { background: rgba(255,107,107,0.12); }
+  .kyri-status { display: flex; align-items: center; gap: 10px; padding: 11px 13px; background: rgba(0,229,160,0.06); border: 1px solid rgba(0,229,160,0.12); border-radius: 10px; }
+  .kyri-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, #00e5a0, #0066ff); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .kname { font-size: 12px; font-weight: 600; color: var(--sidebar-text); font-family: 'Syne', sans-serif; }
+  .kstatus { font-size: 10px; color: #00e5a0; font-family: 'DM Mono', monospace; }
+  .main { margin-left: 224px; min-height: 100vh; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: 1px solid var(--border); background: var(--bg2); position: sticky; top: 0; z-index: 50; }
+  .page-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); }
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+  .date-chip { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); background: var(--bg3); border: 1px solid var(--border); padding: 7px 13px; border-radius: 8px; }
+  .content { padding: 28px 32px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* STATS ROW */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+  .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; animation: fadeUp 0.4s ease both; position: relative; overflow: hidden; }
+  .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
+  .stat-card.green::before { background: var(--accent); }
+  .stat-card.blue::before { background: var(--accent2); }
+  .stat-card.orange::before { background: var(--accent4); }
+  .stat-card.purple::before { background: #7c3aed; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+  .stat-value { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .stat-card.green .stat-value { color: var(--accent); }
+  .stat-card.blue .stat-value { color: var(--accent2); }
+  .stat-card.orange .stat-value { color: var(--accent4); }
+  .stat-card.purple .stat-value { color: #7c3aed; }
+  .stat-sub { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
+  .stat-trend { font-size: 11px; font-weight: 600; margin-top: 6px; }
+  .stat-trend.up { color: var(--accent); }
+  .stat-trend.down { color: var(--accent3); }
+
+  /* GRÁFICA */
+  .chart-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 20px; animation: fadeUp 0.4s ease 0.1s both; }
+  .chart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .chart-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+  .chart-tabs { display: flex; gap: 6px; }
+  .chart-tab { padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; border: 1px solid var(--border2); background: var(--bg3); color: var(--text2); transition: all 0.15s; font-family: 'DM Mono', monospace; }
+  .chart-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .chart-wrap { position: relative; height: 220px; }
+  canvas { width: 100% !important; }
+
+  /* GRID 2 COLS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+
+  /* TABLA HISTORIAL */
+  .panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; animation: fadeUp 0.4s ease 0.2s both; }
+  .panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid var(--border); }
+  .panel-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; }
+  th { padding: 11px 20px; text-align: left; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); background: var(--bg3); }
+  td { padding: 13px 20px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg3); }
+  .badge { display: inline-flex; padding: 3px 8px; border-radius: 5px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; }
+  .badge.green { background: rgba(0,150,106,0.08); color: var(--accent); border: 1px solid rgba(0,150,106,0.2); }
+  .badge.red { background: rgba(211,47,47,0.08); color: var(--accent3); border: 1px solid rgba(211,47,47,0.2); }
+  .badge.orange { background: rgba(230,81,0,0.08); color: var(--accent4); border: 1px solid rgba(230,81,0,0.2); }
+  .trend-up { color: var(--accent); font-weight: 700; font-size: 12px; }
+  .trend-down { color: var(--accent3); font-weight: 700; font-size: 12px; }
+  .trend-flat { color: var(--text3); font-size: 12px; }
+
+  /* TOP PRODUCTOS */
+  .prod-item { display: flex; align-items: center; padding: 12px 20px; border-bottom: 1px solid var(--border); gap: 12px; }
+  .prod-item:last-child { border-bottom: none; }
+  .prod-rank { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); width: 20px; }
+  .prod-name { flex: 1; font-size: 13px; font-weight: 600; }
+  .prod-bar-bg { width: 80px; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+  .prod-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+  .prod-val { font-size: 13px; font-weight: 700; color: var(--text); min-width: 80px; text-align: right; font-family: 'DM Mono', monospace; font-size: 12px; }
+
+  /* EMPTY STATE */
+  .empty-state { padding: 48px 20px; text-align: center; }
+  .empty-icon { font-size: 40px; margin-bottom: 12px; }
+  .empty-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .empty-desc { font-size: 13px; color: var(--text3); line-height: 1.6; }
+
+  /* INSIGHT CARD */
+  .insight-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+  .insight-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; animation: fadeUp 0.4s ease 0.15s both; }
+  .insight-card-icon { font-size: 20px; margin-bottom: 8px; }
+  .insight-card-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .insight-card-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+  .insight-card-value { font-size: 18px; font-weight: 700; color: var(--accent); margin-top: 6px; }
+
+  /* BTN EXPORT */
+  .btn-export { padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; font-family: 'Syne', sans-serif; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-export.excel { background: rgba(0,82,204,0.1); color: var(--accent2); border: 1px solid rgba(0,82,204,0.2); }
+  .btn-export.pdf { background: rgba(211,47,47,0.08); color: var(--accent3); border: 1px solid rgba(211,47,47,0.15); }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo-area">
+    <div class="logo">KYR<span>I</span></div>
+    <div class="logo-sub">Business Intelligence</div>
+  </div>
+  <div class="store-badge">
+    <div class="store-dot"></div>
+    <div class="store-name">{{ business_name }}</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">Principal</div>
+    <a href="/dashboard" class="nav-item">▦ &nbsp;Dashboard</a>
+    <a href="/inventory" class="nav-item">📦 &nbsp;Inventario</a>
+    <a href="/ventas" class="nav-item">📈 &nbsp;Ventas</a>
+    <a href="#" class="nav-item" onclick="abrirChat(); return false;">🤖 &nbsp;KYRI Chat</a>
+    <div class="nav-section">Análisis</div>
+    <a href="/historial" class="nav-item active">📅 &nbsp;Historial</a>
+    <div class="nav-section">Configuración</div>
+    <a href="/tienda" class="nav-item">⚙ &nbsp;Tienda</a>
+    <a href="/alertas" class="nav-item">🔔 &nbsp;Alertas</a>
+  </nav>
+  <div class="sidebar-bottom">
+    <a href="/logout" class="logout-btn">🚪 &nbsp;Cerrar sesión</a>
+    <div class="kyri-status">
+      <div class="kyri-avatar">🤖</div>
+      <div>
+        <div class="kname">KYRI</div>
+        <div class="kstatus">● activo ahora</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="page-title">Historial de Ventas</div>
+    <div class="topbar-right">
+      <div class="date-chip">{{ fecha }}</div>
+      <a href="/exportar/excel" class="btn-export excel">📊 Excel</a>
+      <a href="/exportar/pdf" class="btn-export pdf">📄 PDF</a>
+    </div>
+  </div>
+
+  <div class="content">  {% if guardado %}
+  <div style="background:rgba(0,150,106,0.08);border:1px solid rgba(0,150,106,0.2);border-radius:10px;padding:12px 20px;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:var(--accent);font-size:13px;font-weight:600;">
+    ✅ Historial guardado correctamente — {{ fecha }}
+  </div>
+  {% endif %}
+
+    {% if not dias %}
+    <!-- EMPTY STATE -->
+    <div class="panel">
+      <div class="empty-state">
+        <div class="empty-icon">📅</div>
+        <div class="empty-title">Sin historial disponible</div>
+        <div class="empty-desc">El historial se genera automáticamente cada día a medianoche.<br>Cuando cierre el primer día, aparecerá aquí con todos los datos.</div>
+      </div>
+    </div>
+
+    {% else %}
+
+    <!-- STATS RESUMEN -->
+    <div class="stats-row">
+      <div class="stat-card green">
+        <div class="stat-label">Mejor Día</div>
+        <div class="stat-value">$ {{ "{:,.0f}".format(mejor_dia.ingresos) }}</div>
+        <div class="stat-sub">{{ mejor_dia.fecha }}</div>
+        <div class="stat-trend up">↑ Récord de ingresos</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-label">Promedio Diario</div>
+        <div class="stat-value">$ {{ "{:,.0f}".format(promedio_ingresos) }}</div>
+        <div class="stat-sub">últimos {{ dias|length }} días</div>
+        <div class="stat-trend {% if tendencia >= 0 %}up{% else %}down{% endif %}">
+          {% if tendencia >= 0 %}↑{% else %}↓{% endif %} {{ tendencia }}% vs semana anterior
+        </div>
+      </div>
+      <div class="stat-card orange">
+        <div class="stat-label">Meta Cumplida</div>
+        <div class="stat-value">{{ dias_meta_cumplida }}/{{ dias|length }}</div>
+        <div class="stat-sub">días este período</div>
+        <div class="stat-trend {% if dias_meta_cumplida > 0 %}up{% else %}down{% endif %}">
+          {{ ((dias_meta_cumplida / dias|length * 100)|round|int) if dias|length > 0 else 0 }}% efectividad
+        </div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-label">Ganancia Acumulada</div>
+        <div class="stat-value">$ {{ "{:,.0f}".format(ganancia_total) }}</div>
+        <div class="stat-sub">período completo</div>
+        <div class="stat-trend up">↑ Margen {{ margen_promedio }}%</div>
+      </div>
+    </div>
+
+    <!-- INSIGHTS KYRI -->
+    <div class="insight-row">
+      <div class="insight-card">
+        <div class="insight-card-icon">🏆</div>
+        <div class="insight-card-title">Producto Estrella</div>
+        <div class="insight-card-text">El producto más vendido en el período fue:</div>
+        <div class="insight-card-value">{{ producto_estrella }}</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-card-icon">📊</div>
+        <div class="insight-card-title">Tendencia de Ventas</div>
+        <div class="insight-card-text">
+          {% if tendencia > 10 %}Las ventas están creciendo fuertemente. Excelente momento para expandir inventario.
+          {% elif tendencia > 0 %}Las ventas muestran crecimiento moderado y sostenido.
+          {% elif tendencia == 0 %}Las ventas se mantienen estables en el período.
+          {% else %}Las ventas muestran una leve caída. Considera activar promociones.{% endif %}
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-card-icon">💡</div>
+        <div class="insight-card-title">Recomendación KYRI</div>
+        <div class="insight-card-text">
+          {% if margen_promedio >= 40 %}Margen excelente. Enfócate en aumentar volumen de ventas para maximizar ganancias.
+          {% elif margen_promedio >= 25 %}Margen saludable. Revisa los productos con menor margen para optimizar.
+          {% else %}Margen ajustado. Prioriza revisar costos y precios de los productos más vendidos.{% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- GRÁFICA DE INGRESOS -->
+    <div class="chart-panel">
+      <div class="chart-header">
+        <div class="chart-title">📈 Evolución de Ingresos</div>
+        <div class="chart-tabs">
+          <div class="chart-tab active" onclick="cambiarGrafica('ingresos', this)">Ingresos</div>
+          <div class="chart-tab" onclick="cambiarGrafica('ganancia', this)">Ganancia</div>
+          <div class="chart-tab" onclick="cambiarGrafica('meta', this)">% Meta</div>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="mainChart"></canvas>
+      </div>
+    </div>
+
+    <!-- TABLA + TOP PRODUCTOS -->
+    <div class="grid-2">
+
+      <!-- TOP PRODUCTOS HISTÓRICO -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🏅 Top Productos Histórico</div>
+        </div>
+        {% for p in top_productos %}
+        <div class="prod-item">
+          <div class="prod-rank">{{ loop.index }}</div>
+          <div class="prod-name">{{ p.nombre }}</div>
+          <div class="prod-bar-bg"><div class="prod-bar-fill" style="width:{{ p.pct }}%"></div></div>
+          <div class="prod-val">{{ p.total_vendidos }} uds</div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- MEJOR VS PEOR DÍA -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">⚡ Comparativa Extremos</div>
+        </div>
+        <div style="padding:16px 20px;">
+          <div style="background:rgba(0,150,106,0.05);border:1px solid rgba(0,150,106,0.15);border-radius:10px;padding:14px;margin-bottom:12px;">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">🏆 Mejor día</div>
+            <div style="font-size:20px;font-weight:700;color:var(--accent);">$ {{ "{:,.0f}".format(mejor_dia.ingresos) }}</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:4px;">{{ mejor_dia.fecha }} · Margen {{ mejor_dia.margen }}%</div>
+            <div style="font-size:12px;color:var(--text2);">{{ mejor_dia.transacciones }} transacciones</div>
+          </div>
+          <div style="background:rgba(211,47,47,0.04);border:1px solid rgba(211,47,47,0.12);border-radius:10px;padding:14px;">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--accent3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">📉 Día más bajo</div>
+            <div style="font-size:20px;font-weight:700;color:var(--accent3);">$ {{ "{:,.0f}".format(peor_dia.ingresos) }}</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:4px;">{{ peor_dia.fecha }} · Margen {{ peor_dia.margen }}%</div>
+            <div style="font-size:12px;color:var(--text2);">{{ peor_dia.transacciones }} transacciones</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TABLA COMPLETA -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">📋 Registro Completo por Día</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);">{{ dias|length }} días registrados</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Ingresos</th>
+            <th>Ganancia</th>
+            <th>Margen</th>
+            <th>Transacciones</th>
+            <th>Meta</th>
+            <th>Hora Guardado</th><th>vs Día Anterior</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in dias %}
+          <tr style='cursor:pointer;' onclick="window.location='/historial/dia/{{ d.archivo }}'">
+            <td><strong>{{ d.fecha }}</strong></td>
+            <td style="font-weight:700;color:var(--accent);">$ {{ "{:,.0f}".format(d.ingresos) }}</td>
+            <td style="color:var(--accent2);">$ {{ "{:,.0f}".format(d.ganancia) }}</td>
+            <td>
+              <span class="badge {% if d.margen >= 30 %}green{% elif d.margen >= 15 %}orange{% else %}red{% endif %}">
+                {{ d.margen }}%
+              </span>
+            </td>
+            <td style="font-family:'DM Mono',monospace;font-size:12px;">{{ d.transacciones }}</td>
+            <td>
+              <span class="badge {% if d.pct_meta >= 100 %}green{% elif d.pct_meta >= 70 %}orange{% else %}red{% endif %}">
+                {{ d.pct_meta }}%
+              </span>
+            </td>
+            <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);">{{ d.hora_guardado }}</td>
+            <td>
+              {% if d.vs_anterior > 0 %}
+                <span class="trend-up">↑ +{{ d.vs_anterior }}%</span>
+              {% elif d.vs_anterior < 0 %}
+                <span class="trend-down">↓ {{ d.vs_anterior }}%</span>
+              {% else %}
+                <span class="trend-flat">— primer día</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% endif %}
+
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script>
+  const chartData = {{ chart_data | tojson }};
+  let currentChart = null;
+
+  function renderChart(tipo) {
+    const ctx = document.getElementById('mainChart').getContext('2d');
+    if (currentChart) currentChart.destroy();
+
+    let datos, label, color;
+    if (tipo === 'ingresos') {
+      datos = chartData.ingresos;
+      label = 'Ingresos (COP)';
+      color = '#00966a';
+    } else if (tipo === 'ganancia') {
+      datos = chartData.ganancia;
+      label = 'Ganancia (COP)';
+      color = '#0052cc';
+    } else {
+      datos = chartData.meta;
+      label = '% Meta cumplida';
+      color = '#e65100';
+    }
+
+    currentChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: chartData.fechas,
+        datasets: [{
+          label: label,
+          data: datos,
+          backgroundColor: color + '22',
+          borderColor: color,
+          borderWidth: 2,
+          borderRadius: 6,
+          borderSkipped: false,
+        }, {
+          type: 'line',
+          label: 'Tendencia',
+          data: datos,
+          borderColor: color,
+          borderWidth: 2,
+          pointBackgroundColor: color,
+          pointRadius: 4,
+          tension: 0.4,
+          fill: false,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#0f1923',
+            titleColor: '#e8edf2',
+            bodyColor: '#9aa5b4',
+            borderColor: '#1e2730',
+            borderWidth: 1,
+            callbacks: {
+              label: function(ctx) {
+                if (tipo === 'meta') return ctx.parsed.y + '%';
+                return '$ ' + ctx.parsed.y.toLocaleString('es-CO') + ' COP';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: '#e4e8ef44' },
+            ticks: { color: '#9aa5b4', font: { family: 'DM Mono', size: 10 } }
+          },
+          y: {
+            grid: { color: '#e4e8ef44' },
+            ticks: {
+              color: '#9aa5b4',
+              font: { family: 'DM Mono', size: 10 },
+              callback: function(v) {
+                if (tipo === 'meta') return v + '%';
+                return '$ ' + (v/1000000).toFixed(1) + 'M';
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  function cambiarGrafica(tipo, el) {
+    document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    renderChart(tipo);
+  }
+
+  {% if dias %}
+  renderChart('ingresos');
+  {% endif %}
+</script>
+</body>
+</html>

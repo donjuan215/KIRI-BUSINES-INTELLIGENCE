@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYRI — Panel de Control</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f7fa; --bg2: #ffffff; --bg3: #f0f2f5;
+    --border: #e4e8ef; --border2: #d0d7e3;
+    --accent: #00966a; --accent2: #0052cc; --accent3: #d32f2f; --accent4: #e65100;
+    --text: #0f1923; --text2: #4a5568; --text3: #9aa5b4;
+    --sidebar: #0f1923; --sidebar-text: #e8edf2; --sidebar-text2: #7a8a99; --sidebar-border: #1e2730;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; font-size: 14px; }
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 224px; background: var(--sidebar); border-right: 1px solid var(--sidebar-border); display: flex; flex-direction: column; z-index: 100; }
+  .logo-area { padding: 28px 24px 22px; border-bottom: 1px solid var(--sidebar-border); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -1px; color: var(--sidebar-text); }
+  .logo span { color: #00e5a0; }
+  .logo-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--sidebar-text2); letter-spacing: 2.5px; margin-top: 5px; text-transform: uppercase; }
+  .store-badge { margin: 14px 16px; padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--sidebar-border); border-radius: 10px; display: flex; align-items: center; gap: 10px; }
+  .store-dot { width: 7px; height: 7px; border-radius: 50%; background: #00e5a0; box-shadow: 0 0 8px #00e5a0; animation: pulse 2s infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .store-name { font-size: 12px; font-weight: 500; color: var(--sidebar-text); line-height: 1.3; }
+  .nav { padding: 6px 12px; flex: 1; }
+  .nav-section { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--sidebar-text2); text-transform: uppercase; padding: 16px 10px 6px; }
+  .nav-item { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border-radius: 8px; cursor: pointer; transition: all 0.18s; color: var(--sidebar-text2); font-size: 13px; font-weight: 500; text-decoration: none; margin-bottom: 2px; }
+  .nav-item:hover { background: rgba(255,255,255,0.06); color: var(--sidebar-text); }
+  .nav-item.active { background: rgba(0,229,160,0.1); color: #00e5a0; border: 1px solid rgba(0,229,160,0.15); }
+  .sidebar-bottom { padding: 14px; border-top: 1px solid var(--sidebar-border); }
+  .kyri-status { display: flex; align-items: center; gap: 10px; padding: 11px 13px; background: rgba(0,229,160,0.06); border: 1px solid rgba(0,229,160,0.12); border-radius: 10px; }
+  .kyri-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, #00e5a0, #0066ff); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .kname { font-size: 12px; font-weight: 600; color: var(--sidebar-text); font-family: 'Syne', sans-serif; }
+  .kstatus { font-size: 10px; color: #00e5a0; font-family: 'DM Mono', monospace; }
+  .main { margin-left: 224px; min-height: 100vh; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: 1px solid var(--border); background: var(--bg2); position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 0 var(--border); }
+  .page-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+  .topbar-right { display: flex; align-items: center; gap: 14px; }
+  .date-chip { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); background: var(--bg3); border: 1px solid var(--border); padding: 7px 13px; border-radius: 8px; }
+  .report-btn { display: flex; align-items: center; gap: 7px; padding: 9px 18px; background: var(--accent); color: #fff; border: none; border-radius: 9px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Syne', sans-serif; transition: all 0.2s; }
+  .report-btn:hover { background: #007a55; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,150,106,0.25); }
+  .content { padding: 28px 32px; }
+  .kyri-insight { background: linear-gradient(135deg, rgba(0,150,106,0.05), rgba(0,82,204,0.03)); border: 1px solid rgba(0,150,106,0.15); border-radius: 14px; padding: 18px 22px; margin-bottom: 24px; display: flex; gap: 16px; align-items: flex-start; animation: fadeUp 0.4s ease both; }
+  .kyri-insight-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+  .insight-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .insight-text { font-size: 13px; color: var(--text2); line-height: 1.65; }
+  .insight-text strong { color: var(--text); font-weight: 600; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; position: relative; overflow: hidden; transition: all 0.2s; animation: fadeUp 0.4s ease both; }
+  .kpi-card:nth-child(1) { animation-delay: 0.05s; } .kpi-card:nth-child(2) { animation-delay: 0.1s; } .kpi-card:nth-child(3) { animation-delay: 0.15s; } .kpi-card:nth-child(4) { animation-delay: 0.2s; }
+  .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); border-color: var(--border2); }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 14px 14px 0 0; }
+  .kpi-card.green::before { background: var(--accent); } .kpi-card.blue::before { background: var(--accent2); } .kpi-card.orange::before { background: var(--accent4); } .kpi-card.red::before { background: var(--accent3); }
+  .kpi-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+  .kpi-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .kpi-card.green .kpi-value { color: var(--accent); } .kpi-card.blue .kpi-value { color: var(--accent2); } .kpi-card.orange .kpi-value { color: var(--accent4); } .kpi-card.red .kpi-value { color: var(--accent3); }
+  .kpi-sub { font-size: 11px; color: var(--text3); }
+  .grid-3-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; margin-bottom: 18px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; animation: fadeUp 0.4s ease 0.2s both; }
+  .panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid var(--border); }
+  .panel-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; color: var(--text); }
+  .panel-badge { font-family: 'DM Mono', monospace; font-size: 9px; padding: 3px 8px; border-radius: 4px; background: rgba(0,150,106,0.08); color: var(--accent); border: 1px solid rgba(0,150,106,0.2); letter-spacing: 1px; }
+  .panel-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); }
+  .panel-body { padding: 8px 22px 18px; }
+  .product-row { display: flex; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--border); gap: 14px; }
+  .product-row:last-child { border-bottom: none; }
+  .product-rank { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); width: 22px; text-align: center; flex-shrink: 0; }
+  .product-info { flex: 1; min-width: 0; }
+  .product-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .product-meta { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
+  .product-bar-wrap { width: 70px; height: 3px; background: var(--bg3); border-radius: 2px; overflow: hidden; flex-shrink: 0; }
+  .product-bar { height: 100%; background: var(--accent); border-radius: 2px; }
+  .product-revenue { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); text-align: right; min-width: 95px; flex-shrink: 0; }
+  .alert-item { display: flex; align-items: center; gap: 13px; padding: 13px 0; border-bottom: 1px solid var(--border); }
+  .alert-item:last-child { border-bottom: none; }
+  .alert-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .alert-dot.red { background: var(--accent3); box-shadow: 0 0 6px rgba(211,47,47,0.4); }
+  .alert-dot.yellow { background: #f59f00; box-shadow: 0 0 6px rgba(245,159,0,0.4); }
+  .alert-dot.green { background: var(--accent); box-shadow: 0 0 6px rgba(0,150,106,0.3); }
+  .alert-info { flex: 1; }
+  .alert-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .alert-detail { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
+  .alert-stock { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .alert-stock.red { color: var(--accent3); } .alert-stock.yellow { color: #f59f00; } .alert-stock.green { color: var(--accent); }
+  .health-meter { margin: 14px 0; }
+  .health-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); font-family: 'DM Mono', monospace; margin-bottom: 7px; }
+  .health-bar-bg { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .health-bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+  .health-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+  .health-stat { background: var(--bg3); border-radius: 10px; padding: 14px; border: 1px solid var(--border); }
+  .health-stat-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 7px; }
+  .health-stat-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 700; }
+  .health-badge { font-family: 'DM Mono', monospace; font-size: 10px; padding: 4px 10px; border-radius: 6px; letter-spacing: 1px; font-weight: 500; }
+  .health-badge.green { background: rgba(0,150,106,0.08); color: var(--accent); border: 1px solid rgba(0,150,106,0.2); }
+  .health-badge.yellow { background: rgba(245,159,0,0.08); color: #e65100; border: 1px solid rgba(245,159,0,0.2); }
+  .health-badge.red { background: rgba(211,47,47,0.08); color: var(--accent3); border: 1px solid rgba(211,47,47,0.2); }
+  .chat-area { display: flex; flex-direction: column; gap: 12px; max-height: 190px; overflow-y: auto; }
+  .chat-msg { display: flex; gap: 9px; align-items: flex-start; }
+  .chat-msg.user { flex-direction: row-reverse; }
+  .chat-bubble { max-width: 82%; padding: 10px 14px; font-size: 12px; line-height: 1.55; }
+  .chat-msg.kyri .chat-bubble { background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: 4px 12px 12px 12px; }
+  .chat-msg.user .chat-bubble { background: rgba(0,150,106,0.08); border: 1px solid rgba(0,150,106,0.18); color: var(--text); border-radius: 12px 4px 12px 12px; }
+  .chat-avatar { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .chat-avatar.kyri-av { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+  .chat-avatar.user-av { background: var(--bg3); border: 1px solid var(--border2); }
+  .chat-input-area { display: flex; gap: 8px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .chat-input { flex: 1; background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 9px 13px; color: var(--text); font-size: 12px; font-family: 'Plus Jakarta Sans', sans-serif; outline: none; transition: border-color 0.2s; }
+  .chat-input:focus { border-color: var(--accent); }
+  .chat-input::placeholder { color: var(--text3); }
+  .chat-send { padding: 9px 16px; background: var(--accent); border: none; border-radius: 8px; color: #fff; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'Syne', sans-serif; transition: all 0.2s; }
+  .chat-send:hover { background: #007a55; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg3); } ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo-area">
+    <div class="logo">KYR<span>I</span></div>
+    <div class="logo-sub">Business Intelligence</div>
+  </div>
+  <div class="store-badge">
+    <div class="store-dot"></div>
+    <div class="store-name">{{ business_name }}</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">Principal</div>
+    <a href="/dashboard" class="nav-item active">▦ &nbsp;Dashboard</a>
+    <a href="/inventory" class="nav-item">📦 &nbsp;Inventario</a>
+    <a href="/ventas" class="nav-item">📈 &nbsp;Ventas</a>
+    <a href="#" class="nav-item" onclick="abrirChat(); return false;">🤖 &nbsp;KYRI Chat</a>
+   
+    <div class="nav-section">Análisis</div>
+<a href="/historial" class="nav-item">📅 &nbsp;Historial</a>
+    <div class="nav-section">Configuración</div>
+    <a href="/tienda" class="nav-item">⚙ &nbsp;Tienda</a>
+    <a href="/alertas" class="nav-item">🔔 &nbsp;Alertas</a>
+  </nav>
+  <div class="sidebar-bottom">
+    <a href="/logout" style="display:flex;align-items:center;gap:8px;padding:10px 13px;border-radius:8px;color:#ff6b6b;font-size:12px;font-weight:600;text-decoration:none;margin-bottom:10px;border:1px solid rgba(255,107,107,0.15);background:rgba(255,107,107,0.06);transition:all 0.2s;" onmouseover="this.style.background='rgba(255,107,107,0.12)'" onmouseout="this.style.background='rgba(255,107,107,0.06)'">
+        🚪 &nbsp;Cerrar sesión
+    </a>
+    <div class="kyri-status">
+      <div class="kyri-avatar">🤖</div>
+      <div>
+        <div class="kname">KYRI</div>
+        <div class="kstatus">● activo ahora</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="page-title">Dashboard</div>
+    <div class="topbar-right">
+      <div class="date-chip">{{ fecha }}</div>
+      <button class="report-btn" onclick="enviarReporte()">⚡ Enviar Reporte WhatsApp</button>
+      <a href="/exportar/excel" class="report-btn" style="background:#0052cc;text-decoration:none;">📊 Excel</a>
+      <a href="/exportar/pdf" class="report-btn" style="background:#d32f2f;text-decoration:none;">📄 PDF</a>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="kyri-insight">
+      <div class="kyri-insight-icon">🤖</div>
+      <div>
+        <div class="insight-title">KYRI dice —</div>
+        <div class="insight-text">
+          {% if insights %}{% for insight in insights %}{{ insight }} {% endfor %}
+          {% else %}Sin insights disponibles. Registra ventas para activar el análisis.{% endif %}
+          {% if n_criticos > 0 %}<strong> ⚠ {{ n_criticos }} producto(s) en stock crítico.</strong>{% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card green">
+        <div class="kpi-label">Ingresos Hoy</div>
+        <div class="kpi-value">$ {{ "{:,.0f}".format(total_ingresos) }}</div>
+        <div class="kpi-sub">Margen {{ margen }}% · COP</div>
+      </div>
+      <div class="kpi-card blue">
+        <div class="kpi-label">Ganancia Neta</div>
+        <div class="kpi-value">$ {{ "{:,.0f}".format(total_ganancia) }}</div>
+        <div class="kpi-sub">Costo $ {{ "{:,.0f}".format(total_costo) }} COP</div>
+      </div>
+      <div class="kpi-card orange">
+        <div class="kpi-label">Meta del Día</div>
+        <div class="kpi-value">{{ pct_meta }}%</div>
+        <div class="kpi-sub">Meta: $ {{ "{:,.0f}".format(meta_diaria) }} COP</div>
+      </div>
+      <div class="kpi-card red">
+        <div class="kpi-label">Stock Crítico</div>
+        <div class="kpi-value">{{ n_criticos }}</div>
+        <div class="kpi-sub">{% if stock_critico %}{{ stock_critico[0].nombre }}{% else %}Todo en orden ✓{% endif %}</div>
+      </div>
+    </div>
+
+    <div class="grid-3-1">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🛒 Productos del Día <span class="panel-badge">LIVE</span></div>
+          <div class="panel-meta">{{ ventas_lista|length }} productos</div>
+        </div>
+        <div class="panel-body">
+          {% if ventas_lista %}
+            {% for p in ventas_lista[:5] %}
+            <div class="product-row">
+              <div class="product-rank">0{{ loop.index }}</div>
+              <div class="product-info">
+                <div class="product-name">{{ p.nombre }}</div>
+                <div class="product-meta">{{ p.vendidos }} uds &middot; $ {{ "{:,.0f}".format(p.precio) }} c/u</div>
+              </div>
+              <div class="product-bar-wrap"><div class="product-bar" style="width:{{ p.pct_bar }}%"></div></div>
+              <div class="product-revenue">$ {{ "{:,.0f}".format(p.ingreso) }}</div>
+            </div>
+            {% endfor %}
+          {% else %}
+            <div style="color:var(--text3);font-size:13px;padding:24px 0;text-align:center;">Sin ventas registradas hoy.</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">📦 Stock</div></div>
+        <div class="panel-body">
+          {% for s in stock_critico %}
+          <div class="alert-item">
+            <div class="alert-dot {{ s.nivel }}"></div>
+            <div class="alert-info">
+              <div class="alert-name">{{ s.nombre }}</div>
+              <div class="alert-detail">~{{ s.dias }} días restantes</div>
+            </div>
+            <div class="alert-stock {{ s.nivel }}">{{ s.stock }} uds</div>
+          </div>
+          {% endfor %}
+          {% for s in stock_ok[:5] %}
+          <div class="alert-item">
+            <div class="alert-dot green"></div>
+            <div class="alert-info">
+              <div class="alert-name">{{ s.nombre }}</div>
+              <div class="alert-detail">~{{ s.dias }} días restantes</div>
+            </div>
+            <div class="alert-stock green">{{ s.stock }} uds</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">📊 Salud del Negocio</div>
+          {% if margen >= 30 %}<span class="health-badge green">SALUDABLE</span>
+          {% elif margen >= 15 %}<span class="health-badge yellow">AJUSTADO</span>
+          {% else %}<span class="health-badge red">CRÍTICO</span>{% endif %}
+        </div>
+        <div class="panel-body">
+          <div class="health-meter">
+            <div class="health-label"><span>Margen de ganancia</span><span>{{ margen }}%</span></div>
+            <div class="health-bar-bg"><div class="health-bar" style="width:{{ margen }}%"></div></div>
+          </div>
+          <div class="health-meter">
+            <div class="health-label"><span>Cumplimiento de meta</span><span>{{ [pct_meta, 100]|min }}%</span></div>
+            <div class="health-bar-bg"><div class="health-bar" style="width:{{ [pct_meta, 100]|min }}%;background:linear-gradient(90deg,#f59f00,var(--accent))"></div></div>
+          </div>
+          <div class="health-stats">
+            <div class="health-stat">
+              <div class="health-stat-label">Costo ventas</div>
+              <div class="health-stat-value" style="color:var(--accent3)">$ {{ "{:,.0f}".format(total_costo) }}</div>
+            </div>
+            <div class="health-stat">
+              <div class="health-stat-label">Ganancia neta</div>
+              <div class="health-stat-value" style="color:var(--accent)">$ {{ "{:,.0f}".format(total_ganancia) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🤖 KYRI Chat <span class="panel-badge">IA</span></div>
+        </div>
+        <div class="panel-body">
+          <div class="chat-area" id="chatArea">
+            <div class="chat-msg kyri">
+              <div class="chat-avatar kyri-av">🤖</div>
+              <div class="chat-bubble">Hola! Hoy generaste <strong>$ {{ "{:,.0f}".format(total_ingresos) }} COP</strong> con margen del {{ margen }}%. ¿Qué quieres analizar?</div>
+            </div>
+          </div>
+          <div class="chat-input-area">
+            <input class="chat-input" id="chatInput" placeholder="Pregúntale algo a KYRI...">
+            <button class="chat-send" onclick="sendMsg()">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  function sendMsg() {
+    const input = document.getElementById('chatInput');
+    const area = document.getElementById('chatArea');
+    const msg = input.value.trim();
+    if (!msg) return;
+    area.innerHTML += `<div class="chat-msg user"><div class="chat-avatar user-av">👤</div><div class="chat-bubble">${msg}</div></div>`;
+    input.value = '';
+    area.scrollTop = area.scrollHeight;
+    setTimeout(() => {
+      area.innerHTML += `<div class="chat-msg kyri"><div class="chat-avatar kyri-av">🤖</div><div class="chat-bubble">Conectando KYRI IA... próximamente disponible. 🚀</div></div>`;
+      area.scrollTop = area.scrollHeight;
+    }, 700);
+  }
+  document.getElementById('chatInput').addEventListener('keypress', e => { if (e.key === 'Enter') sendMsg(); });
+  function enviarReporte() {
+    fetch('/send_report', { method: 'POST' }).then(r => r.json()).then(d => alert(d.message)).catch(() => alert('Error al enviar reporte'));
+  }
+<<script>
+  async function sendMsg() {
+    const input = document.getElementById('chatInput');
+    const area = document.getElementById('chatArea');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    area.innerHTML += `<div class="chat-msg user"><div class="chat-avatar user-av">👤</div><div class="chat-bubble">${msg}</div></div>`;
+    input.value = '';
+    area.scrollTop = area.scrollHeight;
+
+    const typingId = 'typing-' + Date.now();
+    area.innerHTML += `<div class="chat-msg kyri" id="${typingId}"><div class="chat-avatar kyri-av">🤖</div><div class="chat-bubble" style="color:var(--text3)">KYRI está pensando...</div></div>`;
+    area.scrollTop = area.scrollHeight;
+
+    try {
+      const res = await fetch('/kyri_chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mensaje: msg })
+      });
+      const data = await res.json();
+      const typingEl = document.getElementById(typingId);
+      if (data.ok) {
+        typingEl.querySelector('.chat-bubble').style.color = '';
+        typingEl.querySelector('.chat-bubble').textContent = data.respuesta;
+      } else {
+        typingEl.querySelector('.chat-bubble').textContent = 'Error: ' + data.error;
+      }
+    } catch (e) {
+      const typingEl = document.getElementById(typingId);
+      if (typingEl) typingEl.querySelector('.chat-bubble').textContent = 'Error de conexión';
+    }
+    area.scrollTop = area.scrollHeight;
+  }
+
+  document.getElementById('chatInput').addEventListener('keypress', e => {
+    if (e.key === 'Enter') sendMsg();
+  });
+
+  function enviarReporte() {
+    fetch('/send_report', { method: 'POST' })
+      .then(r => r.json())
+      .then(d => alert(d.message))
+      .catch(() => alert('Error al enviar reporte'));
+  }
+</script><script>
+  async function sendMsg() {
+    const input = document.getElementById('chatInput');
+    const area = document.getElementById('chatArea');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    area.innerHTML += `<div class="chat-msg user"><div class="chat-avatar user-av">👤</div><div class="chat-bubble">${msg}</div></div>`;
+    input.value = '';
+    area.scrollTop = area.scrollHeight;
+
+    const typingId = 'typing-' + Date.now();
+    area.innerHTML += `<div class="chat-msg kyri" id="${typingId}"><div class="chat-avatar kyri-av">🤖</div><div class="chat-bubble" style="color:var(--text3)">KYRI está pensando...</div></div>`;
+    area.scrollTop = area.scrollHeight;
+
+    try {
+      const res = await fetch('/kyri_chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mensaje: msg })
+      });
+      const data = await res.json();
+      const typingEl = document.getElementById(typingId);
+      if (data.ok) {
+        typingEl.querySelector('.chat-bubble').style.color = '';
+        typingEl.querySelector('.chat-bubble').textContent = data.respuesta;
+      } else {
+        typingEl.querySelector('.chat-bubble').textContent = 'Error: ' + data.error;
+      }
+    } catch (e) {
+      const typingEl = document.getElementById(typingId);
+      if (typingEl) typingEl.querySelector('.chat-bubble').textContent = 'Error de conexión';
+    }
+    area.scrollTop = area.scrollHeight;
+  }
+
+  document.getElementById('chatInput').addEventListener('keypress', e => {
+    if (e.key === 'Enter') sendMsg();
+  });
+
+  function enviarReporte() {
+    fetch('/send_report', { method: 'POST' })
+      .then(r => r.json())
+      .then(d => alert(d.message))
+      .catch(() => alert('Error al enviar reporte'));
+  }
+</script>
+
+<!-- MODAL KYRI CHAT -->
+<div id="chatModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:300;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:18px;width:100%;max-width:480px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.15);">
+    <div style="background:#0f1923;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:32px;height:32px;background:linear-gradient(135deg,#00e5a0,#0066ff);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;">🤖</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#e8edf2;">KYRI Chat</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:#00e5a0;">● activo ahora</div>
+        </div>
+      </div>
+      <button onclick="cerrarChat()" style="background:rgba(255,255,255,0.08);border:none;color:#e8edf2;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:16px;">✕</button>
+    </div>
+    <div id="chatAreaModal" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;min-height:300px;">
+      <div style="display:flex;gap:9px;align-items:flex-start;">
+        <div style="width:28px;height:28px;background:linear-gradient(135deg,#00966a,#0052cc);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">🤖</div>
+        <div style="background:#f0f2f5;border:1px solid #e4e8ef;border-radius:4px 12px 12px 12px;padding:10px 14px;font-size:13px;color:#0f1923;max-width:85%;line-height:1.55;">Hola! Soy KYRI 👋 Puedo analizar tu negocio, responder preguntas sobre ventas, stock y rentabilidad. ¿Qué quieres saber?</div>
+      </div>
+    </div>
+    <div style="padding:14px 16px;border-top:1px solid #e4e8ef;display:flex;gap:8px;">
+      <input id="chatInputModal" style="flex:1;background:#f0f2f5;border:1px solid #e4e8ef;border-radius:8px;padding:10px 14px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;color:#0f1923;" placeholder="Pregúntale algo a KYRI...">
+      <button onclick="sendMsgModal()" style="padding:10px 18px;background:#00966a;border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Syne',sans-serif;">Enviar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function abrirChat() {
+    const modal = document.getElementById('chatModal');
+    modal.style.display = 'flex';
+    document.getElementById('chatInputModal').focus();
+  }
+  function cerrarChat() {
+    document.getElementById('chatModal').style.display = 'none';
+  }
+  document.getElementById('chatModal').addEventListener('click', function(e) {
+    if (e.target === this) cerrarChat();
+  });
+
+  async function sendMsgModal() {
+    const input = document.getElementById('chatInputModal');
+    const area = document.getElementById('chatAreaModal');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    area.innerHTML += `<div style="display:flex;gap:9px;justify-content:flex-end;align-items:flex-start;"><div style="background:rgba(0,150,106,0.08);border:1px solid rgba(0,150,106,0.18);border-radius:12px 4px 12px 12px;padding:10px 14px;font-size:13px;color:#0f1923;max-width:85%;">${msg}</div><div style="width:28px;height:28px;background:#f0f2f5;border:1px solid #e4e8ef;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">👤</div></div>`;
+    input.value = '';
+    area.scrollTop = area.scrollHeight;
+
+    const typingId = 'typing-' + Date.now();
+    area.innerHTML += `<div id="${typingId}" style="display:flex;gap:9px;align-items:flex-start;"><div style="width:28px;height:28px;background:linear-gradient(135deg,#00966a,#0052cc);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">🤖</div><div style="background:#f0f2f5;border:1px solid #e4e8ef;border-radius:4px 12px 12px 12px;padding:10px 14px;font-size:13px;color:#9aa5b4;max-width:85%;">KYRI está pensando...</div></div>`;
+    area.scrollTop = area.scrollHeight;
+
+    try {
+      const res = await fetch('/kyri_chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mensaje: msg })
+      });
+      const data = await res.json();
+      const el = document.getElementById(typingId);
+      if (el) {
+        const bubble = el.querySelector('div:last-child');
+        bubble.style.color = '#0f1923';
+        bubble.textContent = data.ok ? data.respuesta : 'Error: ' + data.error;
+      }
+    } catch(e) {
+      const el = document.getElementById(typingId);
+      if (el) el.querySelector('div:last-child').textContent = 'Error de conexión';
+    }
+    area.scrollTop = area.scrollHeight;
+  }
+
+  document.getElementById('chatInputModal').addEventListener('keypress', e => {
+    if (e.key === 'Enter') sendMsgModal();
+  });
+
+  // Reporte WhatsApp
+  function enviarReporte() {
+    fetch('/send_report', { method: 'POST' })
+      .then(r => r.json())
+      .then(d => alert(d.message))
+      .catch(() => alert('Error al enviar reporte'));
+  }
+</script>
+</body>
+</html>

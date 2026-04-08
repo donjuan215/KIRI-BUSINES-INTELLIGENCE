@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "event": "system_started",
+      "action": "log_start"
+    },
+    {
+      "condition": {
+        "state_key": "usage_count",
+        "operator": ">",
+        "value": 1
+      },
+      "action": "notify_heavy_use"
+    }
+  ]
+}

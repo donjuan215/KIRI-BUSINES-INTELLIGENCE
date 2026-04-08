@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYRI — Alertas</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f7fa; --bg2: #ffffff; --bg3: #f0f2f5;
+    --border: #e4e8ef; --border2: #d0d7e3;
+    --accent: #00966a; --accent2: #0052cc; --accent3: #d32f2f; --accent4: #e65100;
+    --text: #0f1923; --text2: #4a5568; --text3: #9aa5b4;
+    --sidebar: #0f1923; --sidebar-text: #e8edf2; --sidebar-text2: #7a8a99; --sidebar-border: #1e2730;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 224px; background: var(--sidebar); border-right: 1px solid var(--sidebar-border); display: flex; flex-direction: column; z-index: 100; }
+  .logo-area { padding: 28px 24px 22px; border-bottom: 1px solid var(--sidebar-border); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -1px; color: var(--sidebar-text); }
+  .logo span { color: #00e5a0; }
+  .logo-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--sidebar-text2); letter-spacing: 2.5px; margin-top: 5px; text-transform: uppercase; }
+  .store-badge { margin: 14px 16px; padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--sidebar-border); border-radius: 10px; display: flex; align-items: center; gap: 10px; }
+  .store-dot { width: 7px; height: 7px; border-radius: 50%; background: #00e5a0; box-shadow: 0 0 8px #00e5a0; animation: pulse 2s infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .store-name { font-size: 12px; font-weight: 500; color: var(--sidebar-text); }
+  .nav { padding: 6px 12px; flex: 1; }
+  .nav-section { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--sidebar-text2); text-transform: uppercase; padding: 16px 10px 6px; }
+  .nav-item { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border-radius: 8px; cursor: pointer; transition: all 0.18s; color: var(--sidebar-text2); font-size: 13px; font-weight: 500; text-decoration: none; margin-bottom: 2px; }
+  .nav-item:hover { background: rgba(255,255,255,0.06); color: var(--sidebar-text); }
+  .nav-item.active { background: rgba(0,229,160,0.1); color: #00e5a0; border: 1px solid rgba(0,229,160,0.15); }
+  .sidebar-bottom { padding: 14px; border-top: 1px solid var(--sidebar-border); }
+  .logout-btn { display: flex; align-items: center; gap: 8px; padding: 10px 13px; border-radius: 8px; color: #ff6b6b; font-size: 12px; font-weight: 600; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,107,107,0.15); background: rgba(255,107,107,0.06); transition: all 0.2s; }
+  .logout-btn:hover { background: rgba(255,107,107,0.12); }
+  .kyri-status { display: flex; align-items: center; gap: 10px; padding: 11px 13px; background: rgba(0,229,160,0.06); border: 1px solid rgba(0,229,160,0.12); border-radius: 10px; }
+  .kyri-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, #00e5a0, #0066ff); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .kname { font-size: 12px; font-weight: 600; color: var(--sidebar-text); font-family: 'Syne', sans-serif; }
+  .kstatus { font-size: 10px; color: #00e5a0; font-family: 'DM Mono', monospace; }
+  .main { margin-left: 224px; min-height: 100vh; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: 1px solid var(--border); background: var(--bg2); position: sticky; top: 0; z-index: 50; }
+  .page-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); }
+  .date-chip { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); background: var(--bg3); border: 1px solid var(--border); padding: 7px 13px; border-radius: 8px; }
+  .content { padding: 28px 32px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ALERTAS ACTIVAS */
+  .alertas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+  .alerta-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px; animation: fadeUp 0.4s ease both; position: relative; overflow: hidden; }
+  .alerta-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 14px 14px 0 0; }
+  .alerta-card.red::before { background: var(--accent3); }
+  .alerta-card.orange::before { background: var(--accent4); }
+  .alerta-card.blue::before { background: var(--accent2); }
+  .alerta-card.green::before { background: var(--accent); }
+  .alerta-icon { font-size: 24px; margin-bottom: 10px; }
+  .alerta-tipo { font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .alerta-card.red .alerta-tipo { color: var(--accent3); }
+  .alerta-card.orange .alerta-tipo { color: var(--accent4); }
+  .alerta-card.blue .alerta-tipo { color: var(--accent2); }
+  .alerta-card.green .alerta-tipo { color: var(--accent); }
+  .alerta-titulo { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .alerta-desc { font-size: 12px; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
+  .alerta-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; font-family: 'DM Mono', monospace; }
+  .alerta-badge.red { background: rgba(211,47,47,0.08); color: var(--accent3); border: 1px solid rgba(211,47,47,0.2); }
+  .alerta-badge.orange { background: rgba(230,81,0,0.08); color: var(--accent4); border: 1px solid rgba(230,81,0,0.2); }
+  .alerta-badge.blue { background: rgba(0,82,204,0.08); color: var(--accent2); border: 1px solid rgba(0,82,204,0.2); }
+  .alerta-badge.green { background: rgba(0,150,106,0.08); color: var(--accent); border: 1px solid rgba(0,150,106,0.2); }
+
+  /* CONSEJERO */
+  .consejero-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 24px; animation: fadeUp 0.4s ease 0.15s both; }
+  .consejero-header { padding: 16px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+  .consejero-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+  .consejero-badge { font-family: 'DM Mono', monospace; font-size: 9px; padding: 3px 8px; border-radius: 4px; background: rgba(0,150,106,0.08); color: var(--accent); border: 1px solid rgba(0,150,106,0.2); letter-spacing: 1px; }
+  .consejero-body { padding: 20px 22px; }
+  .consejo-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .consejo-item:last-child { border-bottom: none; }
+  .consejo-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .consejo-icon.red { background: rgba(211,47,47,0.08); }
+  .consejo-icon.orange { background: rgba(230,81,0,0.08); }
+  .consejo-icon.blue { background: rgba(0,82,204,0.08); }
+  .consejo-icon.green { background: rgba(0,150,106,0.08); }
+  .consejo-content { flex: 1; }
+  .consejo-titulo { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .consejo-texto { font-size: 12px; color: var(--text2); line-height: 1.65; }
+  .consejo-texto strong { color: var(--text); font-weight: 600; }
+  .consejo-accion { margin-top: 8px; }
+  .btn-accion { padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; border: none; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.15s; text-decoration: none; display: inline-block; }
+  .btn-accion.green { background: rgba(0,150,106,0.1); color: var(--accent); border: 1px solid rgba(0,150,106,0.2); }
+  .btn-accion.orange { background: rgba(230,81,0,0.08); color: var(--accent4); border: 1px solid rgba(230,81,0,0.15); }
+  .btn-accion.blue { background: rgba(0,82,204,0.08); color: var(--accent2); border: 1px solid rgba(0,82,204,0.15); }
+  .btn-accion.red { background: rgba(211,47,47,0.08); color: var(--accent3); border: 1px solid rgba(211,47,47,0.15); }
+
+  /* CONFIG ALERTAS */
+  .config-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; animation: fadeUp 0.4s ease 0.25s both; }
+  .config-header { padding: 16px 22px; border-bottom: 1px solid var(--border); }
+  .config-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+  .config-body { padding: 20px 22px; }
+  .config-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .config-row:last-child { border-bottom: none; }
+  .config-info { flex: 1; }
+  .config-nombre { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .config-desc { font-size: 11px; color: var(--text3); }
+  .toggle { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #d0d7e3; border-radius: 24px; transition: 0.3s; }
+  .toggle-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
+  input:checked + .toggle-slider { background: var(--accent); }
+  input:checked + .toggle-slider:before { transform: translateX(18px); }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo-area">
+    <div class="logo">KYR<span>I</span></div>
+    <div class="logo-sub">Business Intelligence</div>
+  </div>
+  <div class="store-badge">
+    <div class="store-dot"></div>
+    <div class="store-name">{{ business_name }}</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">Principal</div>
+    <a href="/dashboard" class="nav-item">▦ &nbsp;Dashboard</a>
+    <a href="/inventory" class="nav-item">📦 &nbsp;Inventario</a>
+    <a href="/ventas" class="nav-item">📈 &nbsp;Ventas</a>
+    <a href="#" class="nav-item">🤖 &nbsp;KYRI Chat</a>
+    <div class="nav-section">Configuración</div>
+    <a href="/tienda" class="nav-item">⚙ &nbsp;Tienda</a>
+    <a href="/alertas" class="nav-item active">🔔 &nbsp;Alertas</a>
+  </nav>
+  <div class="sidebar-bottom">
+    <a href="/logout" class="logout-btn">🚪 &nbsp;Cerrar sesión</a>
+    <div class="kyri-status">
+      <div class="kyri-avatar">🤖</div>
+      <div>
+        <div class="kname">KYRI</div>
+        <div class="kstatus">● activo ahora</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="page-title">Alertas e Inteligencia</div>
+    <div class="date-chip">{{ fecha }}</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ALERTAS ACTIVAS -->
+    <div class="alertas-grid">
+
+      {% for a in alertas_activas %}
+      <div class="alerta-card {{ a.color }}">
+        <div class="alerta-icon">{{ a.icono }}</div>
+        <div class="alerta-tipo">{{ a.tipo }}</div>
+        <div class="alerta-titulo">{{ a.titulo }}</div>
+        <div class="alerta-desc">{{ a.descripcion }}</div>
+        <span class="alerta-badge {{ a.color }}">{{ a.badge }}</span>
+      </div>
+      {% endfor %}
+
+      {% if not alertas_activas %}
+      <div class="alerta-card green" style="grid-column:1/-1">
+        <div class="alerta-icon">✅</div>
+        <div class="alerta-tipo">Estado general</div>
+        <div class="alerta-titulo">Todo en orden</div>
+        <div class="alerta-desc">No hay alertas críticas en este momento. KYRI está monitoreando tu negocio.</div>
+        <span class="alerta-badge green">NORMAL</span>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <!-- CONSEJERO KYRI -->
+    <div class="consejero-panel">
+      <div class="consejero-header">
+        <span>🤖</span>
+        <div class="consejero-title">KYRI Consejero</div>
+        <span class="consejero-badge">IA</span>
+      </div>
+      <div class="consejero-body">
+
+        {% for c in consejos %}
+        <div class="consejo-item">
+          <div class="consejo-icon {{ c.color }}">{{ c.icono }}</div>
+          <div class="consejo-content">
+            <div class="consejo-titulo">{{ c.titulo }}</div>
+            <div class="consejo-texto">{{ c.texto }}</div>
+            {% if c.accion %}
+            <div class="consejo-accion">
+              <a href="{{ c.link }}" class="btn-accion {{ c.color }}">{{ c.accion }} →</a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+
+        {% if not consejos %}
+        <div style="text-align:center;padding:24px;color:var(--text3);font-size:13px;">
+          Registra ventas para que KYRI pueda darte consejos personalizados.
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- CONFIG -->
+    <div class="config-panel">
+      <div class="config-header">
+        <div class="config-title">⚙ Configurar notificaciones</div>
+      </div>
+      <div class="config-body">
+        <div class="config-row">
+          <div class="config-info">
+            <div class="config-nombre">🔴 Alerta de stock crítico</div>
+            <div class="config-desc">Avisa cuando un producto tiene menos de 5 unidades</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+        <div class="config-row">
+          <div class="config-info">
+            <div class="config-nombre">📈 Alerta de meta diaria</div>
+            <div class="config-desc">Avisa cuando alcanzas el 50%, 80% y 100% de tu meta</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+        <div class="config-row">
+          <div class="config-info">
+            <div class="config-nombre">🎯 Sugerencia de promoción</div>
+            <div class="config-desc">KYRI sugiere promociones cuando las ventas bajan</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+        <div class="config-row">
+          <div class="config-info">
+            <div class="config-nombre">💰 Alerta de margen bajo</div>
+            <div class="config-desc">Avisa cuando el margen de ganancia cae por debajo del 20%</div>
+          </div>
+          <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
+        </div>
+        <div class="config-row">
+          <div class="config-info">
+            <div class="config-nombre">📦 Recomendación de inventario</div>
+            <div class="config-desc">KYRI te dice cuándo y cuánto reabastecer según el ritmo de ventas</div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>

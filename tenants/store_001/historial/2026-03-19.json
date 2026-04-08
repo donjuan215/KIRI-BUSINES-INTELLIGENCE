@@ -1,0 +1,240 @@
+{
+  "fecha": "2026-03-19",
+  "hora_guardado": "07:00 PM",
+  "business_name": "Don Juan Joyeria",
+  "products": {
+    "1": {
+      "name": "cadena cartier",
+      "price": 7000000.0,
+      "cost": 5000000.0,
+      "stock": 4,
+      "sold": 2
+    },
+    "2": {
+      "name": "pulsera N8H diamantada",
+      "price": 1000000.0,
+      "cost": 750000.0,
+      "stock": 0,
+      "sold": 1
+    },
+    "3": {
+      "name": "tobillera dama lisa",
+      "price": 600000.0,
+      "cost": 420000.0,
+      "stock": 7,
+      "sold": 1
+    },
+    "4": {
+      "name": "PULSERA TEJIDA INFINITO",
+      "price": 520000.0,
+      "cost": 350000.0,
+      "stock": 3,
+      "sold": 2
+    },
+    "5": {
+      "name": "PULSERA NIÑA FLOR",
+      "price": 350000.0,
+      "cost": 210000.0,
+      "stock": 0,
+      "sold": 0
+    },
+    "6": {
+      "name": "PULSERA GUERRERO",
+      "price": 1800000.0,
+      "cost": 650000.0,
+      "stock": 3,
+      "sold": 0
+    },
+    "7": {
+      "name": "PULSERA NEO ROJA",
+      "price": 1200000.0,
+      "cost": 680000.0,
+      "stock": 0,
+      "sold": 1
+    },
+    "8": {
+      "name": "PULSERA NEGRA DIAMANTADA",
+      "price": 890000.0,
+      "cost": 620000.0,
+      "stock": 2,
+      "sold": 2
+    },
+    "9": {
+      "name": "PULSERA LISA N9",
+      "price": 2000000.0,
+      "cost": 1200000.0,
+      "stock": 0,
+      "sold": 0
+    },
+    "10": {
+      "name": "ANILLO ROLEX",
+      "price": 3800000.0,
+      "cost": 2500000.0,
+      "stock": 0,
+      "sold": 2
+    },
+    "11": {
+      "name": "PULSERA LISA HERRAJE",
+      "price": 900000.0,
+      "cost": 650000.0,
+      "stock": 0,
+      "sold": 0
+    },
+    "12": {
+      "name": "ANILLO TEJIDO",
+      "price": 540000.0,
+      "cost": 250000.0,
+      "stock": 8,
+      "sold": 1
+    },
+    "13": {
+      "name": "pulsera cartier",
+      "price": 500000.0,
+      "cost": 300000.0,
+      "stock": 6,
+      "sold": 2
+    }
+  },
+  "sales": 14,
+  "historial_ventas": [
+    {
+      "hora": "11:17 AM",
+      "items": [
+        {
+          "nombre": "ANILLO ROLEX",
+          "cantidad": 1,
+          "precio": 3800000.0,
+          "subtotal": 3800000.0
+        },
+        {
+          "nombre": "pulsera cartier",
+          "cantidad": 1,
+          "precio": 500000.0,
+          "subtotal": 500000.0
+        }
+      ],
+      "total": 4300000.0
+    },
+    {
+      "hora": "11:17 AM",
+      "items": [
+        {
+          "nombre": "pulsera N8H diamantada",
+          "cantidad": 1,
+          "precio": 1000000.0,
+          "subtotal": 1000000.0
+        }
+      ],
+      "total": 1000000.0
+    },
+    {
+      "hora": "11:17 AM",
+      "items": [
+        {
+          "nombre": "PULSERA NEO ROJA",
+          "cantidad": 1,
+          "precio": 1200000.0,
+          "subtotal": 1200000.0
+        }
+      ],
+      "total": 1200000.0
+    },
+    {
+      "hora": "11:17 AM",
+      "items": [
+        {
+          "nombre": "ANILLO TEJIDO",
+          "cantidad": 1,
+          "precio": 540000.0,
+          "subtotal": 540000.0
+        }
+      ],
+      "total": 540000.0
+    },
+    {
+      "hora": "12:03 PM",
+      "items": [
+        {
+          "nombre": "pulsera cartier",
+          "cantidad": 1,
+          "precio": 500000.0,
+          "subtotal": 500000.0
+        }
+      ],
+      "total": 500000.0
+    },
+    {
+      "hora": "12:03 PM",
+      "items": [
+        {
+          "nombre": "cadena cartier",
+          "cantidad": 1,
+          "precio": 7000000.0,
+          "subtotal": 7000000.0
+        }
+      ],
+      "total": 7000000.0
+    },
+    {
+      "hora": "01:04 PM",
+      "items": [
+        {
+          "nombre": "cadena cartier",
+          "cantidad": 1,
+          "precio": 7000000.0,
+          "subtotal": 7000000.0
+        },
+        {
+          "nombre": "PULSERA TEJIDA INFINITO",
+          "cantidad": 1,
+          "precio": 520000.0,
+          "subtotal": 520000.0
+        },
+        {
+          "nombre": "ANILLO ROLEX",
+          "cantidad": 1,
+          "precio": 3800000.0,
+          "subtotal": 3800000.0
+        }
+      ],
+      "total": 11320000.0
+    },
+    {
+      "hora": "01:04 PM",
+      "items": [
+        {
+          "nombre": "tobillera dama lisa",
+          "cantidad": 1,
+          "precio": 600000.0,
+          "subtotal": 600000.0
+        },
+        {
+          "nombre": "PULSERA TEJIDA INFINITO",
+          "cantidad": 1,
+          "precio": 520000.0,
+          "subtotal": 520000.0
+        },
+        {
+          "nombre": "PULSERA NEGRA DIAMANTADA",
+          "cantidad": 1,
+          "precio": 890000.0,
+          "subtotal": 890000.0
+        }
+      ],
+      "total": 2010000.0
+    },
+    {
+      "hora": "01:06 PM",
+      "items": [
+        {
+          "nombre": "PULSERA NEGRA DIAMANTADA",
+          "cantidad": 1,
+          "precio": 890000.0,
+          "subtotal": 890000.0
+        }
+      ],
+      "total": 890000.0
+    }
+  ],
+  "daily_goal": 50000000.0
+}
