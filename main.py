@@ -1,13 +1,25 @@
+from flask import Flask
+import sys
+import os
+
+# 🔥 SOLUCIÓN PATH
+sys.path.append(os.path.dirname(__file__))
+
 from core.engine import Engine
 
-# Crear instancia del negocio
+app = Flask(__name__)
+
+# instancia del negocio
 store = Engine("store_001")
 
-# Eventos de prueba
-store.handle_event("system_started")
+@app.route("/")
+def home():
+    return "KYRI funcionando 🚀"
 
-# Registrar venta con payload
-store.handle_event("sale_registered", {"qty": 2})
+@app.route("/test")
+def test():
+    return "OK"
 
-# Chequeo diario
-store.handle_event("daily_check")
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
