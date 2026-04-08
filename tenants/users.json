@@ -1,0 +1,30 @@
+{
+  "empresa_a": {
+    "password": "1234",
+    "tenant": "store_001"
+  },
+  "empresa_b": {
+    "password": "abcd",
+    "tenant": "store_002"
+  },
+  "joyeria_juan": {
+    "password": "mipass",
+    "tenant": "store_003"
+  },
+  "don_juan": {
+    "password": "pass4X",
+    "tenant": "store_004"
+  },
+  "restaurante_carbones": {
+    "password": "pass5X",
+    "tenant": "store_005"
+  },
+  "store_shoes": {
+    "password": "pass6X",
+    "tenant": "store_006"
+  },
+  "juans_store": {
+    "password": "pass7X",
+    "tenant": "store_007"
+  }
+}

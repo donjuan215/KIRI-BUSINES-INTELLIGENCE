@@ -1,0 +1,37 @@
+{
+  "hamburguesa_clasica": {
+    "name": "Hamburguesa Clasica",
+    "cost": 8000,
+    "price": 15000,
+    "stock": 40,
+    "sold": 0
+  },
+  "hamburguesa_doble": {
+    "name": "Hamburguesa Doble",
+    "cost": 12000,
+    "price": 22000,
+    "stock": 25,
+    "sold": 0
+  },
+  "papas_fritas": {
+    "name": "Papas Fritas",
+    "cost": 2500,
+    "price": 7000,
+    "stock": 60,
+    "sold": 0
+  },
+  "gaseosa": {
+    "name": "Gaseosa",
+    "cost": 1500,
+    "price": 4000,
+    "stock": 48,
+    "sold": 0
+  },
+  "agua": {
+    "name": "Agua",
+    "cost": 800,
+    "price": 2500,
+    "stock": 30,
+    "sold": 0
+  }
+}

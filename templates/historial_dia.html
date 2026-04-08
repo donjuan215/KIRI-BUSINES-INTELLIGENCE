@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYRI — Detalle {{ fecha }}</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f7fa; --bg2: #ffffff; --bg3: #f0f2f5;
+    --border: #e4e8ef;
+    --accent: #00966a; --accent2: #0052cc; --accent3: #d32f2f; --accent4: #e65100;
+    --text: #0f1923; --text2: #4a5568; --text3: #9aa5b4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 36px 24px; }
+
+  .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); font-size: 13px; font-weight: 600; text-decoration: none; margin-bottom: 28px; padding: 8px 14px; border: 1px solid rgba(0,150,106,0.2); border-radius: 8px; background: rgba(0,150,106,0.05); transition: all 0.2s; }
+  .back-btn:hover { background: rgba(0,150,106,0.1); }
+
+  .header { background: var(--text); color: #e8edf2; border-radius: 16px; padding: 28px 32px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; }
+  .header-meta { font-family: 'DM Mono', monospace; font-size: 11px; color: #7a8a99; margin-top: 6px; }
+  .header-right { text-align: right; }
+  .header-business { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: #00e5a0; }
+  .header-archivo { font-family: 'DM Mono', monospace; font-size: 10px; color: #4a5568; margin-top: 4px; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+  .stat { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; position: relative; overflow: hidden; }
+  .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
+  .stat.green::before { background: var(--accent); }
+  .stat.blue::before { background: var(--accent2); }
+  .stat.orange::before { background: var(--accent4); }
+  .stat.purple::before { background: #7c3aed; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+  .stat-value { font-size: 22px; font-weight: 700; }
+  .stat.green .stat-value { color: var(--accent); }
+  .stat.blue .stat-value { color: var(--accent2); }
+  .stat.orange .stat-value { color: var(--accent4); }
+  .stat.purple .stat-value { color: #7c3aed; }
+
+  .panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 20px; }
+  .panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid var(--border); }
+  .panel-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+  .panel-count { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); }
+
+  table { width: 100%; border-collapse: collapse; }
+  th { padding: 11px 20px; text-align: left; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); background: var(--bg3); }
+  td { padding: 13px 20px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg3); }
+
+  .badge { display: inline-flex; padding: 3px 8px; border-radius: 5px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 600; }
+  .badge.green { background: rgba(0,150,106,0.08); color: var(--accent); border: 1px solid rgba(0,150,106,0.2); }
+  .badge.red { background: rgba(211,47,47,0.08); color: var(--accent3); border: 1px solid rgba(211,47,47,0.2); }
+  .badge.orange { background: rgba(230,81,0,0.08); color: var(--accent4); border: 1px solid rgba(230,81,0,0.2); }
+
+  .empty { padding: 40px; text-align: center; color: var(--text3); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="/historial" class="back-btn">← Volver al historial</a>
+
+  <div class="header">
+    <div>
+      <h1>📅 {{ fecha }}</h1>
+      <div class="header-meta">Guardado a las {{ hora_guardado }}</div>
+    </div>
+    <div class="header-right">
+      <div class="header-business">{{ business_name }}</div>
+      <div class="header-archivo">{{ archivo }}</div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="stats">
+    <div class="stat green">
+      <div class="stat-label">Ingresos</div>
+      <div class="stat-value">$ {{ "{:,.0f}".format(total_ingresos) }}</div>
+    </div>
+    <div class="stat blue">
+      <div class="stat-label">Ganancia</div>
+      <div class="stat-value">$ {{ "{:,.0f}".format(total_ganancia) }}</div>
+    </div>
+    <div class="stat orange">
+      <div class="stat-label">Margen</div>
+      <div class="stat-value">{{ margen }}%</div>
+    </div>
+    <div class="stat purple">
+      <div class="stat-label">% Meta</div>
+      <div class="stat-value">{{ pct_meta }}%</div>
+    </div>
+  </div>
+
+  <!-- PRODUCTOS VENDIDOS -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">📦 Productos Vendidos</div>
+      <div class="panel-count">{{ productos|length }} productos</div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Unidades</th>
+          <th>Precio Unit.</th>
+          <th>Ingresos</th>
+          <th>Ganancia</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in productos %}
+        <tr>
+          <td><strong>{{ p.nombre }}</strong></td>
+          <td style="font-family:'DM Mono',monospace;">{{ p.vendidos }} uds</td>
+          <td style="color:var(--text2);">$ {{ "{:,.0f}".format(p.precio) }}</td>
+          <td style="color:var(--accent);font-weight:700;">$ {{ "{:,.0f}".format(p.ingreso) }}</td>
+          <td style="color:var(--accent2);">$ {{ "{:,.0f}".format(p.ganancia) }}</td>
+        </tr>
+        {% endfor %}
+        {% if not productos %}
+        <tr><td colspan="5" class="empty">Sin productos vendidos en este período</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TRANSACCIONES -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">🧾 Transacciones</div>
+      <div class="panel-count">{{ transacciones }} ventas</div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Hora</th>
+          <th>Productos</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for v in historial_ventas|reverse|list %}
+        <tr>
+          <td style="font-family:'DM Mono',monospace;color:var(--text3);">{{ loop.index }}</td>
+          <td style="font-family:'DM Mono',monospace;font-size:12px;">{{ v.hora }}</td>
+          <td style="font-size:12px;color:var(--text2);">
+            {% for it in v['items'] %}
+              <span>{{ it.cantidad }}x {{ it.nombre }}</span>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+          </td>
+          <td style="font-weight:700;color:var(--accent);">$ {{ "{:,.0f}".format(v.total) }}</td>
+        </tr>
+        {% endfor %}
+        {% if not historial_ventas %}
+        <tr><td colspan="4" class="empty">Sin transacciones registradas</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

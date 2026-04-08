@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYRI — Acceso</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f5f7fa; font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+  .card { background: #ffffff; border: 1px solid #e4e8ef; border-radius: 20px; padding: 48px 44px; width: 100%; max-width: 420px; box-shadow: 0 8px 40px rgba(0,0,0,0.06); animation: fadeUp 0.4s ease both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 32px; letter-spacing: -1px; color: #0f1923; margin-bottom: 4px; }
+  .logo span { color: #00966a; }
+  .logo-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: #9aa5b4; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 36px; }
+  .welcome { font-size: 20px; font-weight: 700; color: #0f1923; margin-bottom: 6px; }
+  .welcome-sub { font-size: 13px; color: #4a5568; margin-bottom: 32px; line-height: 1.5; }
+  .label { font-size: 11px; font-weight: 600; color: #4a5568; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .input { width: 100%; background: #f0f2f5; border: 1px solid #e4e8ef; border-radius: 10px; padding: 13px 16px; color: #0f1923; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; outline: none; transition: border-color 0.2s, box-shadow 0.2s; margin-bottom: 20px; }
+  .input:focus { border-color: #00966a; box-shadow: 0 0 0 3px rgba(0,150,106,0.08); background: #ffffff; }
+  .input::placeholder { color: #9aa5b4; }
+  .btn { width: 100%; padding: 14px; background: #00966a; color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Syne', sans-serif; letter-spacing: 0.3px; transition: all 0.2s; margin-top: 4px; }
+  .btn:hover { background: #007a55; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,150,106,0.2); }
+  .error { background: rgba(211,47,47,0.06); border: 1px solid rgba(211,47,47,0.2); border-radius: 8px; padding: 10px 14px; color: #d32f2f; font-size: 12px; margin-bottom: 20px; text-align: center; font-weight: 500; }
+  .footer-text { text-align: center; font-size: 11px; color: #9aa5b4; margin-top: 28px; font-family: 'DM Mono', monospace; letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">KYR<span>I</span></div>
+  <div class="logo-sub">Business Intelligence</div>
+  <div class="welcome">Bienvenido de nuevo</div>
+  <div class="welcome-sub">Ingresa tus credenciales para acceder al panel de control.</div>
+  {% if error %}<div class="error">⚠ {{ error }}</div>{% endif %}
+  <form method="POST" action="/login">
+    <div class="label">Usuario</div>
+    <input class="input" type="text" name="usuario" placeholder="tu usuario" autocomplete="off" required>
+    <div class="label">Contraseña</div>
+    <input class="input" type="password" name="clave" placeholder="••••••••" required>
+    <button class="btn" type="submit">Ingresar al panel →</button>
+  </form>
+  <div class="footer-text">KYRI.IA · Panel seguro · v1.0</div>
+</div>
+</body>
+</html>
