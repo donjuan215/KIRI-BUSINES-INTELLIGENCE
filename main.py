@@ -1,24 +1,5 @@
-from flask import Flask, render_template
-import sys
+from web import app
 import os
-
-# 🔥 SOLUCIÓN PATH
-sys.path.append(os.path.dirname(__file__))
-
-from core.engine import Engine
-
-app = Flask(__name__)
-
-# instancia del negocio
-store = Engine("store_001")
-
-@app.route("/")
-def home():
-    return render_template("landing.html")
-
-@app.route("/test")
-def test():
-    return "OK"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
