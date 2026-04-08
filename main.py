@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import sys
 import os
 
@@ -14,7 +14,7 @@ store = Engine("store_001")
 
 @app.route("/")
 def home():
-    return "KYRI funcionando 🚀"
+    return render_template("landing.html")
 
 @app.route("/test")
 def test():
