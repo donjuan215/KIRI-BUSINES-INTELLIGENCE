@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYRI — Tienda</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f7fa; --bg2: #ffffff; --bg3: #f0f2f5;
+    --border: #e4e8ef; --border2: #d0d7e3;
+    --accent: #00966a; --accent2: #0052cc; --accent3: #d32f2f; --accent4: #e65100;
+    --text: #0f1923; --text2: #4a5568; --text3: #9aa5b4;
+    --sidebar: #0f1923; --sidebar-text: #e8edf2; --sidebar-text2: #7a8a99; --sidebar-border: #1e2730;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; }
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 224px; background: var(--sidebar); border-right: 1px solid var(--sidebar-border); display: flex; flex-direction: column; z-index: 100; }
+  .logo-area { padding: 28px 24px 22px; border-bottom: 1px solid var(--sidebar-border); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -1px; color: var(--sidebar-text); }
+  .logo span { color: #00e5a0; }
+  .logo-sub { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--sidebar-text2); letter-spacing: 2.5px; margin-top: 5px; text-transform: uppercase; }
+  .store-badge { margin: 14px 16px; padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--sidebar-border); border-radius: 10px; display: flex; align-items: center; gap: 10px; }
+  .store-dot { width: 7px; height: 7px; border-radius: 50%; background: #00e5a0; box-shadow: 0 0 8px #00e5a0; animation: pulse 2s infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .store-name { font-size: 12px; font-weight: 500; color: var(--sidebar-text); }
+  .nav { padding: 6px 12px; flex: 1; }
+  .nav-section { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--sidebar-text2); text-transform: uppercase; padding: 16px 10px 6px; }
+  .nav-item { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border-radius: 8px; cursor: pointer; transition: all 0.18s; color: var(--sidebar-text2); font-size: 13px; font-weight: 500; text-decoration: none; margin-bottom: 2px; }
+  .nav-item:hover { background: rgba(255,255,255,0.06); color: var(--sidebar-text); }
+  .nav-item.active { background: rgba(0,229,160,0.1); color: #00e5a0; border: 1px solid rgba(0,229,160,0.15); }
+  .sidebar-bottom { padding: 14px; border-top: 1px solid var(--sidebar-border); }
+  .logout-btn { display: flex; align-items: center; gap: 8px; padding: 10px 13px; border-radius: 8px; color: #ff6b6b; font-size: 12px; font-weight: 600; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,107,107,0.15); background: rgba(255,107,107,0.06); transition: all 0.2s; }
+  .logout-btn:hover { background: rgba(255,107,107,0.12); }
+  .kyri-status { display: flex; align-items: center; gap: 10px; padding: 11px 13px; background: rgba(0,229,160,0.06); border: 1px solid rgba(0,229,160,0.12); border-radius: 10px; }
+  .kyri-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, #00e5a0, #0066ff); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .kname { font-size: 12px; font-weight: 600; color: var(--sidebar-text); font-family: 'Syne', sans-serif; }
+  .kstatus { font-size: 10px; color: #00e5a0; font-family: 'DM Mono', monospace; }
+  .main { margin-left: 224px; min-height: 100vh; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: 1px solid var(--border); background: var(--bg2); position: sticky; top: 0; z-index: 50; }
+  .page-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); }
+  .date-chip { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); background: var(--bg3); border: 1px solid var(--border); padding: 7px 13px; border-radius: 8px; }
+  .content { padding: 28px 32px; max-width: 720px; }
+  .section { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 20px; animation: fadeUp 0.4s ease both; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.2s; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .section-header { padding: 16px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); }
+  .section-body { padding: 22px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { margin-bottom: 16px; }
+  .form-label { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 7px; display: block; }
+  .form-input { width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 11px 14px; color: var(--text); font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif; outline: none; transition: border-color 0.2s; }
+  .form-input:focus { border-color: var(--accent); background: #fff; }
+  .form-hint { font-size: 11px; color: var(--text3); margin-top: 5px; font-family: 'DM Mono', monospace; }
+  .btn-save { padding: 11px 24px; background: var(--accent); color: #fff; border: none; border-radius: 9px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'Syne', sans-serif; transition: all 0.2s; }
+  .btn-save:hover { background: #007a55; transform: translateY(-1px); }
+  .success-msg { background: rgba(0,150,106,0.08); border: 1px solid rgba(0,150,106,0.2); border-radius: 8px; padding: 10px 16px; color: var(--accent); font-size: 12px; font-weight: 600; margin-bottom: 16px; display: none; }
+  .divider { height: 1px; background: var(--border); margin: 18px 0; }
+  .danger-zone { background: rgba(211,47,47,0.03); border: 1px solid rgba(211,47,47,0.15); border-radius: 14px; padding: 20px 22px; }
+  .danger-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--accent3); margin-bottom: 6px; }
+  .danger-desc { font-size: 12px; color: var(--text2); margin-bottom: 14px; line-height: 1.5; }
+  .btn-danger { padding: 10px 20px; background: transparent; color: var(--accent3); border: 1px solid rgba(211,47,47,0.3); border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s; }
+  .btn-danger:hover { background: var(--accent3); color: #fff; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo-area">
+    <div class="logo">KYR<span>I</span></div>
+    <div class="logo-sub">Business Intelligence</div>
+  </div>
+  <div class="store-badge">
+    <div class="store-dot"></div>
+    <div class="store-name">{{ business_name }}</div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section">Principal</div>
+    <a href="/dashboard" class="nav-item">▦ &nbsp;Dashboard</a>
+    <a href="/inventory" class="nav-item">📦 &nbsp;Inventario</a>
+    <a href="/ventas" class="nav-item">📈 &nbsp;Ventas</a>
+    <a href="#" class="nav-item">🤖 &nbsp;KYRI Chat</a>
+    <div class="nav-section">Configuración</div>
+    <a href="/tienda" class="nav-item active">⚙ &nbsp;Tienda</a>
+    <a href="/alertas" class="nav-item">🔔 &nbsp;Alertas</a>
+  </nav>
+  <div class="sidebar-bottom">
+    <a href="/logout" class="logout-btn">🚪 &nbsp;Cerrar sesión</a>
+    <div class="kyri-status">
+      <div class="kyri-avatar">🤖</div>
+      <div>
+        <div class="kname">KYRI</div>
+        <div class="kstatus">● activo ahora</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="page-title">Configuración de Tienda</div>
+    <div class="date-chip">{{ fecha }}</div>
+  </div>
+
+  <div class="content">
+
+    {% if guardado %}
+    <div style="background:rgba(0,150,106,0.08);border:1px solid rgba(0,150,106,0.2);border-radius:10px;padding:12px 18px;color:var(--accent);font-size:13px;font-weight:600;margin-bottom:20px;">
+      ✅ Configuración guardada correctamente
+    </div>
+    {% endif %}
+
+    <!-- INFO BÁSICA -->
+    <div class="section">
+      <div class="section-header">
+        <span>🏪</span>
+        <div class="section-title">Información del Negocio</div>
+      </div>
+      <div class="section-body">
+        <form method="POST" action="/tienda/guardar">
+          <input type="hidden" name="seccion" value="negocio">
+          <div class="form-row">
+            <div>
+              <label class="form-label">Nombre del negocio</label>
+              <input class="form-input" type="text" name="name" value="{{ config.name }}" required>
+            </div>
+            <div>
+              <label class="form-label">Tipo de negocio</label>
+              <input class="form-input" type="text" name="type" value="{{ config.type }}">
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label class="form-label">Meta diaria (COP)</label>
+              <input class="form-input" type="number" name="daily_goal" value="{{ config.daily_goal }}">
+              <div class="form-hint">Objetivo de ventas por día</div>
+            </div>
+            <div>
+              <label class="form-label">Número WhatsApp reporte</label>
+              <input class="form-input" type="text" name="whatsapp" value="{{ config.whatsapp or '' }}" placeholder="+573001234567">
+              <div class="form-hint">Número donde llega el reporte diario</div>
+            </div>
+          </div>
+          <button type="submit" class="btn-save">Guardar cambios</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ACCESO -->
+    <div class="section">
+      <div class="section-header">
+        <span>🔐</span>
+        <div class="section-title">Credenciales de Acceso</div>
+      </div>
+      <div class="section-body">
+        <form method="POST" action="/tienda/guardar">
+          <input type="hidden" name="seccion" value="acceso">
+          <div class="form-row">
+            <div>
+              <label class="form-label">Usuario</label>
+              <input class="form-input" type="text" name="usuario" value="{{ config.usuario or 'admin' }}">
+            </div>
+            <div>
+              <label class="form-label">Nueva contraseña</label>
+              <input class="form-input" type="password" name="clave" placeholder="Dejar vacío para no cambiar">
+            </div>
+          </div>
+          <button type="submit" class="btn-save">Actualizar acceso</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ZONA PELIGROSA -->
+    <div class="danger-zone">
+      <div class="danger-title">⚠ Zona de reinicio</div>
+      <div class="danger-desc">Esto reiniciará todas las ventas del día a cero. El inventario y productos no se modifican. Úsalo solo si necesitas corregir un error.</div>
+      <form method="POST" action="/tienda/reset" onsubmit="return confirm('¿Seguro? Esto borra todas las ventas del día.')">
+        <button type="submit" class="btn-danger">Reiniciar ventas del día</button>
+      </form>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>

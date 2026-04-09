@@ -1,0 +1,10 @@
+{
+  "name": "Don Juan Joyeria",
+  "type": "Joyeria",
+  "currency": "COP",
+  "owner": "demo_user",
+  "daily_goal": 50000000.0,
+  "usuario": "admin",
+  "clave": "1234",
+  "whatsapp": "3154603200"
+}

@@ -1,0 +1,8 @@
+{
+  "sale_registered": {
+    "actions": ["log_sale"]
+  },
+  "daily_check": {
+    "actions": ["send_daily_report"]
+  }
+}

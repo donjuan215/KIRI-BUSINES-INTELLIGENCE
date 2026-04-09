@@ -1,0 +1,4 @@
+[
+  { "event": "system_started" },
+  { "event": "daily_check" }
+]
