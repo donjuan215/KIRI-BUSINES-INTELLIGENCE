@@ -10,7 +10,7 @@ app.secret_key = "kyri_secret_2026"
 
 @app.route("/")
 def home():
-    return "KYRI API running 🚀"
+    return render_template("landing.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
