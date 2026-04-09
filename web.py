@@ -3,18 +3,12 @@ import os
 import json
 from datetime import datetime
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv() 
+TENANT_ID = "store_001"
+TENANT_PATH = os.path.join("tenants", TENANT_ID)
 
 app = Flask(__name__)
 app.secret_key = "kyri_secret_2026"
-
-@app.route("/")
-def home():
-    return "KYRI API running 🚀"
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
 
 
 def load_json(filename):
@@ -1322,4 +1316,5 @@ hilo_reset = threading.Thread(target=reset_diario, daemon=True)
 hilo_reset.start()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
