@@ -723,7 +723,18 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
       </div>
 
       <div>
-        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Tu número de WhatsApp</label>
+        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;"><div>
+  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Elige tu usuario</label>
+  <input id="f-usuario" type="text" placeholder="mi_negocio"
+    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
+    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+</div>
+<div>
+  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Crea tu contraseña</label>
+  <input id="f-clave" type="password" placeholder="mínimo 6 caracteres"
+    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
+    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+</div></label>
         <div style="display:flex;gap:8px;align-items:center;">
           <div style="padding:12px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:9px;font-size:13px;color:var(--text2);font-family:'DM Mono',monospace;white-space:nowrap;">🇨🇴 +57</div>
           <input id="f-wsp" type="tel" placeholder="3001234567"
@@ -732,7 +743,18 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
             onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
         </div>
       </div>
-
+<div>
+  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Elige tu usuario</label>
+  <input id="f-usuario" type="text" placeholder="mi_negocio"
+    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
+    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+</div>
+<div>
+  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Crea tu contraseña</label>
+  <input id="f-clave" type="password" placeholder="mínimo 6 caracteres"
+    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
+    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+</div>
       <button onclick="enviarSolicitud()" id="btnEnviar" style="
         width:100%;padding:15px;
         background:var(--accent);color:#fff;
@@ -766,7 +788,7 @@ function cerrarModal() {
 document.getElementById('modalAcceso').addEventListener('click', function(e) {
   if (e.target === this) cerrarModal();
 });
-function enviarSolicitud() {
+  async function enviarSolicitud() {
   const nombre    = document.getElementById('f-nombre').value.trim();
   const negocio   = document.getElementById('f-negocio').value.trim();
   const tipo      = document.getElementById('f-tipo').value;
@@ -775,14 +797,40 @@ function enviarSolicitud() {
   const productos = document.getElementById('f-productos').value;
   const actual    = document.getElementById('f-actual').value;
   const wsp       = document.getElementById('f-wsp').value.trim();
-  if (!nombre || !negocio || !tipo || !email || !ciudad || !productos || !actual || !wsp) {
+  const usuario   = document.getElementById('f-usuario').value.trim();
+  const clave     = document.getElementById('f-clave').value.trim();
+
+  if (!nombre || !negocio || !tipo || !email || !ciudad || !wsp || !usuario || !clave) {
     alert('Por favor completa todos los campos.');
     return;
   }
-  const msg = `Hola%2C%20quiero%20acceso%20a%20KYRI%20%F0%9F%9F%A2%0A%0A*Nombre%3A*%20${encodeURIComponent(nombre)}%0A*Negocio%3A*%20${encodeURIComponent(negocio)}%0A*Tipo%3A*%20${encodeURIComponent(tipo)}%0A*Correo%3A*%20${encodeURIComponent(email)}%0A*Ciudad%3A*%20${encodeURIComponent(ciudad)}%0A*Productos%3A*%20${encodeURIComponent(productos)}%0A*Lleva%20ventas%20en%3A*%20${encodeURIComponent(actual)}%0A*WhatsApp%3A*%20${encodeURIComponent(wsp)}`;
-  window.open(`https://wa.me/573154603200?text=${msg}`, '_blank');
-  cerrarModal();
+  if (clave.length < 6) {
+    alert('La contraseña debe tener mínimo 6 caracteres.');
+    return;
+  }
+
+  const btn = document.getElementById('btnEnviar');
+  btn.textContent = 'Creando tu cuenta...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/registro', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({nombre, negocio, tipo, email, ciudad, productos, actual, wsp, usuario, clave})
+    });
+    const data = await res.json();
+    if (data.ok) {
+      cerrarModal();
+      window.location.href = '/login?nuevo=1';
+    } else {
+      alert('Error: ' + data.error);
+      btn.textContent = 'Enviar solicitud →';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    alert('Error de conexión. Intenta de nuevo.');
+    btn.textContent = 'Enviar solicitud →';
+    btn.disabled = false;
+  }
 }
-</script>
-</body>
-</html>
