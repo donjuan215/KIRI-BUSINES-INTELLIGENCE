@@ -310,13 +310,12 @@ def generar_credenciales():
     clave = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
     return usuario, clave
 
-def crear_tenant(nombre, negocio, tipo, email, ciudad, wsp):
+def crear_tenant(nombre, negocio, tipo, email, ciudad, wsp, usuario, clave):
     tenant_id = "store_" + ''.join(random.choices(string.digits, k=6))
     tenant_path = os.path.join("tenants", tenant_id)
     historial_path = os.path.join(tenant_path, "historial")
     os.makedirs(tenant_path, exist_ok=True)
     os.makedirs(historial_path, exist_ok=True)
-    usuario, clave = generar_credenciales()
     config = {
         "name": negocio, "tipo": tipo, "owner": nombre,
         "email": email, "ciudad": ciudad, "whatsapp": wsp,
@@ -403,12 +402,14 @@ def registro():
     productos = body.get("productos", "").strip()
     actual    = body.get("actual", "").strip()
     wsp       = body.get("wsp", "").strip()
-    if not all([nombre, negocio, tipo, email, ciudad, wsp]):
+    usuario   = body.get("usuario", "").strip()
+    clave     = body.get("clave", "").strip()
+    if not all([nombre, negocio, tipo, email, ciudad, wsp, usuario, clave]):
         return jsonify({"ok": False, "error": "Faltan campos"})
     try:
-        tenant_id, usuario, clave = crear_tenant(nombre, negocio, tipo, email, ciudad, wsp)
-        correo_enviado = enviar_correo_bienvenida(nombre, email, usuario, clave, negocio)
-        return jsonify({"ok": True, "correo": correo_enviado})
+        tenant_id = crear_tenant(nombre, negocio, tipo, email, ciudad, wsp, usuario, clave)
+        enviar_correo_bienvenida(nombre, email, usuario, clave, negocio)
+        return jsonify({"ok": True})
     except Exception as e:
         return jsonify({"ok": False, "error": str(e)})
 @app.route("/")
