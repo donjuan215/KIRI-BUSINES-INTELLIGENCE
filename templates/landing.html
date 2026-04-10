@@ -598,7 +598,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 <!-- BOTÓN FLOTANTE SOLICITAR ACCESO -->
 <div style="position:fixed;bottom:28px;right:28px;z-index:300;">
-  <button onclick="abrirModal()" style="
+  <button onclick="document.getElementById('modalAcceso').style.display='flex';document.body.style.overflow='hidden'" style="
     display:flex;align-items:center;gap:10px;
     padding:14px 22px;
     background:var(--accent);color:#fff;
