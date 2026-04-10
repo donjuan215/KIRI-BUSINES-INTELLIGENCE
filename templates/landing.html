@@ -743,7 +743,18 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
             onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
         </div>
       </div>
-
+<div>
+  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Elige tu usuario</label>
+  <input id="f-usuario" type="text" placeholder="mi_negocio"
+    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
+    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+</div>
+<div>
+  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Crea tu contraseña</label>
+  <input id="f-clave" type="password" placeholder="mínimo 6 caracteres"
+    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
+    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+</div>
       <button onclick="enviarSolicitud()" id="btnEnviar" style="
         width:100%;padding:15px;
         background:var(--accent);color:#fff;
@@ -777,7 +788,7 @@ function cerrarModal() {
 document.getElementById('modalAcceso').addEventListener('click', function(e) {
   if (e.target === this) cerrarModal();
 });
-async function enviarSolicitud() {
+  async function enviarSolicitud() {
   const nombre    = document.getElementById('f-nombre').value.trim();
   const negocio   = document.getElementById('f-negocio').value.trim();
   const tipo      = document.getElementById('f-tipo').value;

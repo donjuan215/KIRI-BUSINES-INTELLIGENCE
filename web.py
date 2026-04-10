@@ -402,14 +402,16 @@ def registro():
     productos = body.get("productos", "").strip()
     actual    = body.get("actual", "").strip()
     wsp       = body.get("wsp", "").strip()
-    if not all([nombre, negocio, tipo, email, ciudad, wsp]):
+    usuario   = body.get("usuario", "").strip()
+    clave     = body.get("clave", "").strip()
+    if not all([nombre, negocio, tipo, email, ciudad, wsp, usuario, clave]):
         return jsonify({"ok": False, "error": "Faltan campos"})
     try:
-        usuario = body.get("usuario", "").strip() clave = body.get("clave", "").strip() tenant_id = crear_tenant(nombre, negocio, tipo, email, ciudad, wsp, usuario, clave)
-        correo_enviado = enviar_correo_bienvenida(nombre, email, usuario, clave, negocio)
-    return jsonify({"ok": True, "correo": correo_enviado})
-    except Exception as e: return jsonify({"ok": False, "error": str(e)})
-
+        tenant_id = crear_tenant(nombre, negocio, tipo, email, ciudad, wsp, usuario, clave)
+        enviar_correo_bienvenida(nombre, email, usuario, clave, negocio)
+        return jsonify({"ok": True})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)})
 @app.route("/")
 def home():
     if is_logged_in():
