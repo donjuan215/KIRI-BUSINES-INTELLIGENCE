@@ -731,22 +731,27 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </div>
 <div>
   <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Crea tu contraseña</label>
+  <div>
+  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Elige tu usuario</label>
+  <input id="f-usuario" type="text" placeholder="mi_negocio"
+    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
+    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+</div>
+<div>
+  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Crea tu contraseña</label>
   <input id="f-clave" type="password" placeholder="mínimo 6 caracteres"
     style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
     onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
-</div></label>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <div style="padding:12px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:9px;font-size:13px;color:var(--text2);font-family:'DM Mono',monospace;white-space:nowrap;">🇨🇴 +57</div>
-          <input id="f-wsp" type="tel" placeholder="3001234567"
-            style="flex:1;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;transition:border-color .2s;"
-            onfocus="this.style.borderColor='var(--accent)';this.style.background='#fff'"
-            onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
-        </div>
-      </div>
+</div>
 <div>
-  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Crea tu contraseña</label>
-    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
-    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Tu número de WhatsApp</label>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <div style="padding:12px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:9px;font-size:13px;color:var(--text2);font-family:'DM Mono',monospace;white-space:nowrap;">🇨🇴 +57</div>
+    <input id="f-wsp" type="tel" placeholder="3001234567"
+      style="flex:1;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;transition:border-color .2s;"
+      onfocus="this.style.borderColor='var(--accent)';this.style.background='#fff'"
+      onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
+  </div>
 </div>
       <button onclick="enviarSolicitud()" id="btnEnviar" style="
         width:100%;padding:15px;
