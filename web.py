@@ -331,32 +331,15 @@ def crear_tenant(nombre, negocio, tipo, email, ciudad, wsp, usuario, clave):
 
 def enviar_correo_bienvenida(nombre, email, usuario, clave, negocio):
     try:
-        import resend
-        resend.api_key = os.environ.get("RESEND_API_KEY")
-        resend.Emails.send({
-            "from": "KYRI <onboarding@resend.dev>",
-            "to": email,
-            "subject": "Tu acceso a KYRI está listo",
-            "html": f"""
-            <div style="font-family:Arial,sans-serif;max-width:500px;margin:auto;padding:32px;background:#f9f9f9;border-radius:12px;">
-              <h2 style="color:#00966a;">¡Bienvenido a KYRI, {nombre}!</h2>
-              <p>Tu negocio <strong>{negocio}</strong> ya está registrado y activo.</p>
-              <div style="background:#fff;border-radius:8px;padding:20px;margin:20px 0;border:1px solid #e0e0e0;">
-                <p><strong>Usuario:</strong> {usuario}</p>
-                <p><strong>Contraseña:</strong> {clave}</p>
-              </div>
-              <a href="https://kiri-busines-intelligence-production.up.railway.app/login"
-                 style="background:#00966a;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;">
-                Entrar a KYRI →
-              </a>
-              <p style="font-size:12px;color:#999;margin-top:20px;">Si no solicitaste este acceso ignora este correo.</p>
-            </div>
-            """
-        })
-        return True
-    except Exception as e:
-        print(f"Error correo: {e}")
-        return False
+        gmail_user = os.environ.get("GMAIL_USER")
+        gmail_pass = os.environ.get("GMAIL_PASS")
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = "🟢 Tu acceso a KYRI está listo"
+        msg["From"] = f"KYRI Business Intelligence <{gmail_user}>"
+        msg["To"] = email
+        html = f"""
+        <!DOCTYPE html>
+        <html>
         <html>
         <head><meta charset="UTF-8"></head>
         <body style="margin:0;padding:0;background:#f5f7fa;font-family:Arial,sans-serif;">
