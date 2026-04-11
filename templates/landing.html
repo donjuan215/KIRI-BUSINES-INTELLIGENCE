@@ -17,100 +17,36 @@
 }
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden;}
-
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 52px;
-  background:rgba(245,247,250,0.97);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 52px;background:rgba(245,247,250,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
 .nav-logo-wrap{display:flex;flex-direction:column;gap:2px;}
-.nav-logo{
-  font-family:'Syne',sans-serif;
-  font-weight:800;font-size:26px;letter-spacing:-1px;
-  color:var(--sidebar);line-height:1;
-}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:-1px;color:var(--sidebar);line-height:1;}
 .nav-logo span{color:var(--accent);}
-.nav-logo-sub{
-  font-family:'DM Mono',monospace;font-size:8px;
-  letter-spacing:2.5px;color:var(--text3);text-transform:uppercase;
-}
+.nav-logo-sub{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2.5px;color:var(--text3);text-transform:uppercase;}
 .nav-links{display:flex;align-items:center;gap:32px;}
 .nav-links a{font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s;}
 .nav-links a:hover{color:var(--text);}
-.btn-nav{
-  padding:9px 22px;background:var(--sidebar);color:#e8edf2;
-  border:none;border-radius:8px;font-size:13px;font-weight:700;
-  cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;
-  text-decoration:none;transition:all .2s;
-}
+.btn-nav{padding:9px 22px;background:var(--sidebar);color:#e8edf2;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;transition:all .2s;}
 .btn-nav:hover{background:#1e2730;}
-
-/* ── HERO ── */
 .hero-wrap{max-width:1240px;margin:0 auto;}
-.hero{
-  padding:118px 52px 64px;
-  display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center;
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:5px 13px;
-  border:1px solid rgba(0,150,106,0.2);background:rgba(0,150,106,0.06);
-  border-radius:6px;font-family:'DM Mono',monospace;font-size:10px;
-  color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;
-  margin-bottom:24px;animation:fadeUp .5s ease both;
-}
+.hero{padding:118px 52px 64px;display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 13px;border:1px solid rgba(0,150,106,0.2);background:rgba(0,150,106,0.06);border-radius:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px;animation:fadeUp .5s ease both;}
 .bdot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:blink 2s infinite;}
-h1{
-  font-weight:800;font-size:clamp(38px,4.2vw,58px);
-  line-height:1.07;letter-spacing:-1.5px;
-  margin-bottom:20px;animation:fadeUp .5s ease .1s both;
-}
+h1{font-weight:800;font-size:clamp(38px,4.2vw,58px);line-height:1.07;letter-spacing:-1.5px;margin-bottom:20px;animation:fadeUp .5s ease .1s both;}
 h1 .gr{color:var(--accent);}
-.hero-sub{
-  font-size:16px;font-weight:400;color:var(--text2);line-height:1.75;
-  margin-bottom:34px;animation:fadeUp .5s ease .2s both;
-}
+.hero-sub{font-size:16px;font-weight:400;color:var(--text2);line-height:1.75;margin-bottom:34px;animation:fadeUp .5s ease .2s both;}
 .hero-ctas{display:flex;align-items:center;gap:12px;animation:fadeUp .5s ease .3s both;}
-.btn-p{
-  padding:13px 30px;background:var(--accent);color:#fff;
-  border:none;border-radius:8px;font-size:14px;font-weight:700;
-  cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;
-  text-decoration:none;transition:all .2s;
-}
+.btn-p{padding:13px 30px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;transition:all .2s;}
 .btn-p:hover{background:#007a55;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,150,106,0.2);}
-.btn-o{
-  padding:13px 30px;background:transparent;color:var(--text2);
-  border:1px solid var(--border2);border-radius:8px;font-size:14px;font-weight:600;
-  cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;
-  text-decoration:none;transition:all .2s;
-}
+.btn-o{padding:13px 30px;background:transparent;color:var(--text2);border:1px solid var(--border2);border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;transition:all .2s;}
 .btn-o:hover{background:var(--bg3);color:var(--text);}
-.hero-stats{
-  display:flex;gap:32px;margin-top:44px;padding-top:30px;
-  border-top:1px solid var(--border);animation:fadeUp .5s ease .4s both;
-}
+.hero-stats{display:flex;gap:32px;margin-top:44px;padding-top:30px;border-top:1px solid var(--border);animation:fadeUp .5s ease .4s both;}
 .hs-num{font-weight:800;font-size:26px;color:var(--accent);letter-spacing:-1px;}
 .hs-lbl{font-size:11px;color:var(--text3);margin-top:3px;font-family:'DM Mono',monospace;}
 .hs-div{width:1px;background:var(--border);}
-
-/* ── DASHBOARD MOCKUP ── */
 .hero-visual{animation:fadeUp .6s ease .15s both;}
-.dash{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:16px;overflow:hidden;
-  box-shadow:0 24px 64px rgba(15,25,35,0.1);
-  transform:perspective(1200px) rotateY(-4deg) rotateX(2deg);
-  transition:transform .6s ease;
-}
+.dash{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(15,25,35,0.1);transform:perspective(1200px) rotateY(-4deg) rotateX(2deg);transition:transform .6s ease;}
 .dash:hover{transform:perspective(1200px) rotateY(0deg) rotateX(0deg);}
-.dtopbar{
-  background:var(--sidebar);padding:11px 18px;
-  display:flex;align-items:center;justify-content:space-between;
-}
+.dtopbar{background:var(--sidebar);padding:11px 18px;display:flex;align-items:center;justify-content:space-between;}
 .dtop-l{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;color:#e8edf2;}
 .dtop-r{font-family:'DM Mono',monospace;font-size:10px;color:#7a8a99;}
 .dkpis{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border);}
@@ -144,40 +80,26 @@ h1 .gr{color:var(--accent);}
 .dchat-av{width:22px;height:22px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
 .dchat-msg{background:rgba(0,150,106,0.06);border:1px solid rgba(0,150,106,0.12);border-radius:3px 8px 8px 8px;padding:7px 10px;font-size:10px;color:var(--text2);line-height:1.55;}
 .dchat-msg strong{color:var(--accent);}
-
-/* ── TICKER ── */
 .ticker-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 0;background:var(--bg2);}
 .ticker{display:flex;animation:ticker 28s linear infinite;white-space:nowrap;}
 .t-item{display:inline-flex;align-items:center;gap:10px;padding:0 26px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);}
 .t-dot{width:4px;height:4px;border-radius:50%;background:var(--accent);}
 @keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
-/* ── SECTIONS ── */
 .section{max-width:1240px;margin:0 auto;padding:80px 52px;}
 .stag{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;}
 .stitle{font-weight:800;font-size:clamp(28px,3vw,44px);letter-spacing:-1.2px;line-height:1.12;margin-bottom:14px;}
 .sdesc{font-size:15px;color:var(--text2);line-height:1.75;max-width:520px;}
-
-/* ── PROBLEMA ── */
 .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
 .pc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;transition:all .25s;}
 .pc:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 10px 30px rgba(15,25,35,0.07);}
 .pc-ico{font-size:26px;margin-bottom:12px;}
 .pc-t{font-weight:700;font-size:15px;margin-bottom:8px;}
 .pc-d{font-size:13px;color:var(--text2);line-height:1.65;}
-
-/* ── STATS BAR ── */
-.stats-bar{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:14px;padding:28px 36px;margin-top:16px;
-  display:grid;grid-template-columns:repeat(4,1fr);
-}
+.stats-bar{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:28px 36px;margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);}
 .sb{text-align:center;padding:0 16px;position:relative;}
 .sb+.sb::before{content:'';position:absolute;left:0;top:10%;bottom:10%;width:1px;background:var(--border);}
 .sb-num{font-weight:800;font-size:32px;color:var(--accent);letter-spacing:-1.5px;line-height:1;}
 .sb-lbl{font-size:11px;color:var(--text3);margin-top:5px;font-family:'DM Mono',monospace;}
-
-/* ── GRAFICA SEMANAL ── */
 .chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:44px;}
 .chart-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
 .chart-card-title{font-weight:700;font-size:16px;}
@@ -185,8 +107,6 @@ h1 .gr{color:var(--accent);}
 .tab{padding:5px 13px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);transition:all .15s;font-family:'DM Mono',monospace;}
 .tab.on{background:var(--accent);color:#fff;border-color:var(--accent);}
 .chart-big{height:210px;position:relative;}
-
-/* ── FEATURES ── */
 .fg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
 .fc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;transition:all .25s;}
 .fc:hover{border-color:rgba(0,150,106,0.25);transform:translateY(-3px);box-shadow:0 10px 30px rgba(15,25,35,0.07);}
@@ -206,8 +126,6 @@ h1 .gr{color:var(--accent);}
 .fp-fill{height:100%;background:var(--accent);border-radius:2px;}
 .fp-v{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);}
 .donut-box{height:100px;position:relative;}
-
-/* ── COMPARATIVA ── */
 .compare-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 0;}
 .compare-inner{max-width:1240px;margin:0 auto;padding:0 52px;}
 .cg{display:grid;grid-template-columns:repeat(3,1fr);margin-top:44px;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
@@ -219,8 +137,6 @@ h1 .gr{color:var(--accent);}
 .cc-row:last-child{border-bottom:none;}
 .ck{color:var(--accent);font-weight:700;}
 .cx{color:var(--text3);}
-
-/* ── PRECIO ── */
 .precio-outer{max-width:680px;margin:0 auto;padding:80px 52px;text-align:center;}
 .precio-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:48px;margin-top:36px;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(15,25,35,0.08);}
 .precio-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
@@ -235,16 +151,11 @@ h1 .gr{color:var(--accent);}
 .precio-btn{display:flex;padding:15px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;transition:all .2s;width:100%;justify-content:center;}
 .precio-btn:hover{background:#007a55;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,150,106,0.2);}
 .precio-nota{font-size:11px;color:var(--text3);margin-top:12px;font-family:'DM Mono',monospace;}
-
-/* ── CTA ── */
 .cta{max-width:1240px;margin:0 auto;padding:80px 52px;border-top:1px solid var(--border);text-align:center;}
 .cta-t{font-weight:800;font-size:clamp(26px,3vw,42px);letter-spacing:-1.2px;line-height:1.2;margin-bottom:12px;}
 .cta-t em{color:var(--accent);font-style:normal;}
 .cta-s{font-size:15px;color:var(--text2);margin-bottom:32px;}
-
 footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);background:var(--bg2);}
-
-/* ── ANIMACIONES ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
@@ -254,7 +165,6 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo-wrap">
     <div class="nav-logo">KYR<span>I</span></div>
@@ -268,7 +178,6 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
   <a href="/login" class="btn-nav">Iniciar sesión →</a>
 </nav>
 
-<!-- HERO -->
 <div class="hero-wrap">
 <div class="hero">
   <div>
@@ -276,8 +185,8 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
     <h1>Tu negocio,<br><span class="gr">bajo control.</span><br>En tiempo real.</h1>
     <p class="hero-sub">KYRI te muestra exactamente cuánto ganaste hoy, qué producto te deja más plata y cuándo se te acaba el inventario — con una IA que responde tus preguntas en español.</p>
     <div class="hero-ctas">
-</div>
       <a href="/login" class="btn-p">Entrar a KYRI →</a>
+    </div>
     <div class="hero-stats">
       <div><div class="hs-num">$150K</div><div class="hs-lbl">COP / mes</div></div>
       <div class="hs-div"></div>
@@ -323,7 +232,6 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
 </div>
 </div>
 
-<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker">
     <div class="t-item"><div class="t-dot"></div>Dashboard en tiempo real</div>
@@ -345,7 +253,6 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
   </div>
 </div>
 
-<!-- PROBLEMA -->
 <section class="section reveal" id="problema">
   <div class="stag">El problema</div>
   <h2 class="stitle">Millones de negocios<br>tomando decisiones a ciegas.</h2>
@@ -355,14 +262,12 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
     <div class="pc reveal d2"><div class="pc-ico">📦</div><div class="pc-t">"Se me acabó el producto"</div><div class="pc-d">Sin alertas de inventario pierdes ventas por productos agotados. Cada unidad sin stock es plata que se fue.</div></div>
     <div class="pc reveal d3"><div class="pc-ico">💸</div><div class="pc-t">"No sé cuánto gané"</div><div class="pc-d">Vender mucho no significa ganar mucho. Sin control de costos y márgenes el negocio puede estar en rojo sin saberlo.</div></div>
   </div>
-
   <div class="stats-bar reveal">
     <div class="sb"><div class="sb-num" id="s1">0</div><div class="sb-lbl">microempresas en Colombia</div></div>
     <div class="sb"><div class="sb-num" id="s2">0%</div><div class="sb-lbl">sin software de gestión</div></div>
     <div class="sb"><div class="sb-num" id="s3">$0M</div><div class="sb-lbl">pérdida promedio mensual</div></div>
     <div class="sb"><div class="sb-num" id="s4">$150K</div><div class="sb-lbl">cuesta KYRI al mes</div></div>
   </div>
-
   <div class="chart-card reveal">
     <div class="chart-card-header">
       <div class="chart-card-title">Evolución de ventas — Semana típica con KYRI</div>
@@ -376,19 +281,17 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
   </div>
 </section>
 
-<!-- FUNCIONES -->
 <section class="section reveal" id="funciones">
   <div class="stag">Funciones</div>
   <h2 class="stitle">Todo lo que necesita<br>tu negocio. Nada más.</h2>
   <p class="sdesc">Sin módulos innecesarios. Sin complicaciones. KYRI tiene exactamente lo que necesita el negocio colombiano real para tomar mejores decisiones cada día.</p>
-
   <div class="fg">
     <div class="fc s2 reveal">
       <div class="fc-inner">
         <div>
           <div class="fc-ico">🤖</div>
           <div class="fc-t">KYRI — Tu asistente inteligente</div>
-          <div class="fc-d">Pregúntale cualquier cosa sobre tu negocio en español. KYRI responde con los datos reales de tu tienda — no es genérico, entiende tu negocio.</div>
+          <div class="fc-d">Pregúntale cualquier cosa sobre tu negocio en español. KYRI responde con los datos reales de tu tienda.</div>
           <div class="fc-list">
             <div class="fc-li">"¿Cuándo debo reabastecer este producto?"</div>
             <div class="fc-li">"¿Qué producto me deja más ganancia?"</div>
@@ -408,7 +311,6 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
         </div>
       </div>
     </div>
-
     <div class="fc reveal d1"><div class="fc-ico">📊</div><div class="fc-t">Dashboard en tiempo real</div><div class="fc-d">Ingresos, ganancias, margen y meta del día actualizados al instante con cada venta registrada.</div></div>
     <div class="fc reveal d2"><div class="fc-ico">🧾</div><div class="fc-t">POS con ticket imprimible</div><div class="fc-d">Registra ventas en segundos e imprime el ticket con método de pago. Compatible con cualquier impresora.</div></div>
     <div class="fc reveal d1"><div class="fc-ico">📅</div><div class="fc-t">Historial con comparativas</div><div class="fc-d">Ve la evolución de tus ventas día a día. Compara semanas, detecta tendencias y toma mejores decisiones.</div></div>
@@ -417,7 +319,6 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
   </div>
 </section>
 
-<!-- COMPARATIVA -->
 <div class="compare-section">
   <div class="compare-inner reveal">
     <div class="stag">Por qué KYRI</div>
@@ -454,7 +355,6 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
   </div>
 </div>
 
-<!-- PRECIO -->
 <section class="precio-outer reveal" id="precio">
   <div class="stag" style="text-align:center">Precio</div>
   <h2 class="stitle" style="text-align:center">Simple. Sin sorpresas.</h2>
@@ -478,28 +378,120 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-fa
   </div>
 </section>
 
-<!-- CTA FINAL -->
 <div class="cta reveal">
   <div class="cta-t">El contador digital que<br><em>Colombia nunca tuvo.</em></div>
   <p class="cta-s">Empieza hoy. Sin instalaciones. Sin complicaciones.</p>
-  <a href="/login" class="btn-p" style="font-size:15px;padding:15px 44px;display:inline-flex;">Entrar a KYRI →</a>
-  <a href="/login" class="btn-p" style="font-size:15px;padding:15px 44px;display:inline-flex;">Entrar a KYRI →</a>
-<a href="https://wa.me/573154603200?text=Hola%2C%20quiero%20solicitar%20acceso%20a%20KYRI%20para%20mi%20negocio" target="_blank" class="btn-o" style="font-size:15px;padding:15px 44px;background:rgba(37,211,102,0.08);border-color:rgba(37,211,102,0.3);color:#128c3e;">💬 Solicitar acceso por WhatsApp</a>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="/login" class="btn-p" style="font-size:15px;padding:15px 44px;">Entrar a KYRI →</a>
+    <a href="https://wa.me/573154603200?text=Hola%2C%20quiero%20solicitar%20acceso%20a%20KYRI%20para%20mi%20negocio" target="_blank" class="btn-o" style="font-size:15px;padding:15px 44px;background:rgba(37,211,102,0.08);border-color:rgba(37,211,102,0.3);color:#128c3e;">💬 Solicitar acceso por WhatsApp</a>
+  </div>
 </div>
 
 <footer>KYRI — Business Intelligence para Latinoamerica &nbsp;·&nbsp; Hecho con ❤️ en Colombia</footer>
+
+<!-- BOTÓN FLOTANTE -->
+<div style="position:fixed;bottom:28px;right:28px;z-index:300;">
+  <button onclick="abrirModal()" style="display:flex;align-items:center;gap:10px;padding:14px 22px;background:var(--accent);color:#fff;border:none;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;box-shadow:0 8px 32px rgba(0,150,106,0.35);transition:all .2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+    <span style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.8;animation:blink 2s infinite;"></span>
+    Solicitar acceso a KYRI
+  </button>
+</div>
+
+<!-- MODAL -->
+<div id="modalAcceso" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(15,25,35,0.55);backdrop-filter:blur(10px);align-items:center;justify-content:center;overflow-y:auto;padding:20px 0;">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:36px;width:100%;max-width:480px;margin:auto;position:relative;box-shadow:0 32px 80px rgba(15,25,35,0.2);animation:fadeUp .3s ease both;max-height:90vh;overflow-y:auto;">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:20px 20px 0 0;"></div>
+    <button onclick="cerrarModal()" style="position:absolute;top:16px;right:16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:14px;color:var(--text2);display:flex;align-items:center;justify-content:center;">✕</button>
+    <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">Crear cuenta</div>
+    <div style="font-weight:800;font-size:24px;letter-spacing:-0.8px;margin-bottom:6px;color:var(--text);">Empieza con KYRI</div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:32px;">Completa el formulario y accede al instante.</div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Tu nombre completo</label>
+        <input id="f-nombre" type="text" placeholder="Juan García" style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Nombre del negocio</label>
+        <input id="f-negocio" type="text" placeholder="Joyería Don Juan" style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Tipo de negocio</label>
+        <select id="f-tipo" style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+          <option value="">Selecciona tu tipo de negocio...</option>
+          <option>Joyería / Accesorios</option>
+          <option>Restaurante / Comidas rápidas</option>
+          <option>Tienda de ropa</option>
+          <option>Miscelánea / Papelería</option>
+          <option>Supermercado / Tienda</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Correo electrónico</label>
+        <input id="f-email" type="email" placeholder="juan@gmail.com" style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Ciudad</label>
+          <input id="f-ciudad" type="text" placeholder="Cali, Medellín..." style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">¿Cuántos productos?</label>
+          <select id="f-productos" style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+            <option value="">Selecciona...</option>
+            <option>1 - 20 productos</option>
+            <option>20 - 50 productos</option>
+            <option>50 - 100 productos</option>
+            <option>Más de 100</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">¿Cómo llevas tus ventas hoy?</label>
+        <select id="f-actual" style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+          <option value="">Selecciona...</option>
+          <option>Cuaderno o libreta</option>
+          <option>Excel o Google Sheets</option>
+          <option>Otro software</option>
+          <option>De memoria</option>
+          <option>No llevo registro</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Tu número de WhatsApp</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <div style="padding:12px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:9px;font-size:13px;color:var(--text2);font-family:'DM Mono',monospace;white-space:nowrap;">🇨🇴 +57</div>
+          <input id="f-wsp" type="tel" placeholder="3001234567" style="flex:1;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+        </div>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Elige tu usuario</label>
+        <input id="f-usuario" type="text" placeholder="mi_negocio" style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Crea tu contraseña</label>
+        <input id="f-clave" type="password" placeholder="mínimo 6 caracteres" style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+      </div>
+      <button onclick="enviarSolicitud()" id="btnEnviar" style="width:100%;padding:15px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;margin-top:4px;" onmouseover="this.style.background='#007a55'" onmouseout="this.style.background='var(--accent)'">
+        Crear mi cuenta →
+      </button>
+      <div style="font-size:11px;color:var(--text3);text-align:center;font-family:'DM Mono',monospace;">
+        Acceso inmediato · Sin tarjeta de crédito
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 Chart.defaults.color = '#9aa5b4';
 
-// Fecha
 const now = new Date();
 document.getElementById('dashDate').textContent =
   now.toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric'}) +
   ' — ' + now.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
 
-// Contador animado
 function animCount(el, to, suffix, prefix, dur, dec=0) {
   let st=null;
   (function step(ts){
@@ -510,7 +502,6 @@ function animCount(el, to, suffix, prefix, dur, dec=0) {
   })(performance.now());
 }
 
-// Hero KPIs arrancan al cargar
 setTimeout(()=>{
   animCount(document.getElementById('k1'),50.3,'M','$',1400,1);
   animCount(document.getElementById('k2'),19.9,'M','$',1400,1);
@@ -523,63 +514,24 @@ setTimeout(()=>{
   },500);
 },700);
 
-// Hero chart
 const hCtx=document.getElementById('heroChart').getContext('2d');
 const hG=hCtx.createLinearGradient(0,0,0,100);
 hG.addColorStop(0,'rgba(0,150,106,0.18)');hG.addColorStop(1,'rgba(0,150,106,0)');
-new Chart(hCtx,{
-  type:'line',
-  data:{labels:['Lun','Mar','Mié','Jue','Vie','Sáb','Hoy'],
-    datasets:[{data:[28,35,22,42,38,45,50.3],borderColor:'#00966a',borderWidth:2,
-      pointBackgroundColor:'#00966a',pointRadius:3,tension:0.4,fill:true,backgroundColor:hG}]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{backgroundColor:'#0f1923',titleColor:'#e8edf2',bodyColor:'#9aa5b4',
-      callbacks:{label:c=>'$'+c.parsed.y+'M COP'}}},
-    scales:{x:{grid:{color:'#e4e8ef55'},ticks:{font:{size:9}}},
-      y:{grid:{color:'#e4e8ef55'},ticks:{font:{size:9},callback:v=>'$'+v+'M'}}}}
-});
+new Chart(hCtx,{type:'line',data:{labels:['Lun','Mar','Mié','Jue','Vie','Sáb','Hoy'],datasets:[{data:[28,35,22,42,38,45,50.3],borderColor:'#00966a',borderWidth:2,pointBackgroundColor:'#00966a',pointRadius:3,tension:0.4,fill:true,backgroundColor:hG}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#e4e8ef55'},ticks:{font:{size:9}}},y:{grid:{color:'#e4e8ef55'},ticks:{font:{size:9},callback:v=>'$'+v+'M'}}}}});
 
-// Big chart
 const bCtx=document.getElementById('bigChart').getContext('2d');
-const DS={
-  ing:{data:[28,42,35,55,48,62,50],color:'#00966a',suf:'M',pre:'$'},
-  gan:{data:[11,17,14,22,19,25,20],color:'#0052cc',suf:'M',pre:'$'},
-  meta:{data:[56,84,70,110,96,124,100],color:'#e65100',suf:'%',pre:''}
-};
+const DS={ing:{data:[28,42,35,55,48,62,50],color:'#00966a',suf:'M',pre:'$'},gan:{data:[11,17,14,22,19,25,20],color:'#0052cc',suf:'M',pre:'$'},meta:{data:[56,84,70,110,96,124,100],color:'#e65100',suf:'%',pre:''}};
 let bChart=null;
 function buildBig(k){
   if(bChart) bChart.destroy();
   const d=DS[k];
-  bChart=new Chart(bCtx,{
-    type:'bar',
-    data:{labels:['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],
-      datasets:[
-        {type:'bar',data:d.data,backgroundColor:d.color+'20',borderColor:d.color,borderWidth:2,borderRadius:7,borderSkipped:false},
-        {type:'line',data:d.data,borderColor:d.color,borderWidth:2.5,pointBackgroundColor:d.color,pointRadius:4,tension:0.4,fill:false}
-      ]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{backgroundColor:'#0f1923',titleColor:'#e8edf2',bodyColor:'#9aa5b4',
-        callbacks:{label:c=>d.pre+c.parsed.y+d.suf+' COP'}}},
-      scales:{x:{grid:{color:'#e4e8ef55'},ticks:{font:{size:11}}},
-        y:{grid:{color:'#e4e8ef55'},ticks:{font:{size:11},callback:v=>d.pre+v+d.suf}}}}
-  });
+  bChart=new Chart(bCtx,{type:'bar',data:{labels:['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],datasets:[{type:'bar',data:d.data,backgroundColor:d.color+'20',borderColor:d.color,borderWidth:2,borderRadius:7,borderSkipped:false},{type:'line',data:d.data,borderColor:d.color,borderWidth:2.5,pointBackgroundColor:d.color,pointRadius:4,tension:0.4,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#e4e8ef55'}},y:{grid:{color:'#e4e8ef55'},ticks:{callback:v=>d.pre+v+d.suf}}}}});
 }
 buildBig('ing');
-function sw(k,el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
-  el.classList.add('on');buildBig(k);
-}
+function sw(k,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));el.classList.add('on');buildBig(k);}
 
-// Donut
-new Chart(document.getElementById('donutChart').getContext('2d'),{
-  type:'doughnut',
-  data:{labels:['Pulseras','Anillos','Cadenas','Otros'],
-    datasets:[{data:[42,28,18,12],backgroundColor:['#00966a','#0052cc','#e65100','#e4e8ef'],borderWidth:0,hoverOffset:4}]},
-  options:{responsive:true,maintainAspectRatio:false,cutout:'68%',
-    plugins:{legend:{display:true,position:'right',labels:{font:{size:10},color:'#9aa5b4',boxWidth:8,padding:10}}}}
-});
+new Chart(document.getElementById('donutChart').getContext('2d'),{type:'doughnut',data:{labels:['Pulseras','Anillos','Cadenas','Otros'],datasets:[{data:[42,28,18,12],backgroundColor:['#00966a','#0052cc','#e65100','#e4e8ef'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{display:true,position:'right',labels:{font:{size:10},color:'#9aa5b4',boxWidth:8,padding:10}}}}});
 
-// Stats animados en scroll
 let sAnimated=false;
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
@@ -595,188 +547,9 @@ const obs=new IntersectionObserver(entries=>{
   });
 },{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-</script>
-<!-- BOTÓN FLOTANTE SOLICITAR ACCESO -->
-<div style="position:fixed;bottom:28px;right:28px;z-index:300;">
-  <button onclick="document.getElementById('modalAcceso').style.display='flex';document.body.style.overflow='hidden'" style="
-    display:flex;align-items:center;gap:10px;
-    padding:14px 22px;
-    background:var(--accent);color:#fff;
-    border:none;border-radius:100px;
-    font-size:14px;font-weight:700;
-    cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;
-    box-shadow:0 8px 32px rgba(0,150,106,0.35);
-    transition:all .2s;
-  " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(0,150,106,0.45)'"
-     onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(0,150,106,0.35)'">
-    <span style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:0.8;animation:blink 2s infinite;"></span>
-    Solicitar acceso a KYRI
-  </button>
-</div>
 
-<!-- MODAL -->
-<div id="modalAcceso" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(15,25,35,0.55);backdrop-filter:blur(10px);align-items:center;justify-content:center;overflow-y:auto;padding:20px 0;">
-  <div style="
-    background:var(--bg2);border:1px solid var(--border);
-    border-radius:20px;padding:36px;width:100%;max-width:480px;
-    margin:auto;position:relative;
-    box-shadow:0 32px 80px rgba(15,25,35,0.2);
-    animation:fadeUp .3s ease both;max-height:90vh;overflow-y:auto;
-  ">
-    <!-- TOP LINE -->
-    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:20px 20px 0 0;"></div>
-
-    <!-- CERRAR -->
-    <button onclick="cerrarModal()" style="
-      position:absolute;top:16px;right:16px;
-      background:var(--bg3);border:1px solid var(--border);
-      border-radius:8px;width:30px;height:30px;
-      cursor:pointer;font-size:14px;color:var(--text2);
-      display:flex;align-items:center;justify-content:center;
-      transition:all .15s;
-    " onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='var(--bg3)'">✕</button>
-
-    <!-- HEADER -->
-    <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">Solicitar acceso</div>
-    <div style="font-weight:800;font-size:24px;letter-spacing:-0.8px;margin-bottom:6px;color:var(--text);">Empieza con KYRI</div>
-    <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:32px;">Completa el formulario y te activamos el acceso en menos de 24 horas.</div>
-
-    <!-- CAMPOS -->
-    <div style="display:flex;flex-direction:column;gap:16px;">
-
-      <div>
-        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Tu nombre completo</label>
-        <input id="f-nombre" type="text" placeholder="Juan García"
-          style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;transition:border-color .2s;"
-          onfocus="this.style.borderColor='var(--accent)';this.style.background='#fff'"
-          onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
-      </div>
-
-      <div>
-        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Nombre del negocio</label>
-        <input id="f-negocio" type="text" placeholder="Joyería Don Juan"
-          style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;transition:border-color .2s;"
-          onfocus="this.style.borderColor='var(--accent)';this.style.background='#fff'"
-          onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
-      </div>
-
-      <div>
-        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Tipo de negocio</label>
-        <select id="f-tipo"
-          style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;transition:border-color .2s;appearance:none;cursor:pointer;"
-          onfocus="this.style.borderColor='var(--accent)';this.style.background='#fff'"
-          onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
-          <option value="">Selecciona tu tipo de negocio...</option>
-          <option>Joyería / Accesorios</option>
-          <option>Restaurante / Comidas rápidas</option>
-          <option>Tienda de ropa</option>
-          <option>Miscelánea / Papelería</option>
-          <option>Supermercado / Tienda</option>
-          <option>Otro</option>
-        </select>
-      </div>
-
-      <div>
-        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Correo electrónico</label>
-        <input id="f-email" type="email" placeholder="juan@gmail.com"
-          style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;transition:border-color .2s;"
-          onfocus="this.style.borderColor='var(--accent)';this.style.background='#fff'"
-          onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-        <div>
-          <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Ciudad</label>
-          <input id="f-ciudad" type="text" placeholder="Cali, Medellín..."
-            style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;transition:border-color .2s;"
-            onfocus="this.style.borderColor='var(--accent)';this.style.background='#fff'"
-            onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
-        </div>
-        <div>
-          <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">¿Cuántos productos vendes?</label>
-          <select id="f-productos"
-            style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;transition:border-color .2s;appearance:none;cursor:pointer;"
-            onfocus="this.style.borderColor='var(--accent)';this.style.background='#fff'"
-            onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
-            <option value="">Selecciona...</option>
-            <option>1 - 20 productos</option>
-            <option>20 - 50 productos</option>
-            <option>50 - 100 productos</option>
-            <option>Más de 100</option>
-          </select>
-        </div>
-      </div>
-
-      <div>
-        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">¿Cómo llevas tus ventas hoy?</label>
-        <select id="f-actual"
-          style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;transition:border-color .2s;appearance:none;cursor:pointer;"
-          onfocus="this.style.borderColor='var(--accent)';this.style.background='#fff'"
-          onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
-          <option value="">Selecciona...</option>
-          <option>Cuaderno o libreta</option>
-          <option>Excel o Google Sheets</option>
-          <option>Otro software</option>
-          <option>De memoria</option>
-          <option>No llevo registro</option>
-        </select>
-      </div>
-
-      <div>
-        <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;"><div>
-  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Elige tu usuario</label>
-  <input id="f-usuario" type="text" placeholder="mi_negocio"
-    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
-    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
-</div>
-<div>
-  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Crea tu contraseña</label>
-  <div>
-  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Elige tu usuario</label>
-  <input id="f-usuario" type="text" placeholder="mi_negocio"
-    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
-    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
-</div>
-<div>
-  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Crea tu contraseña</label>
-  <input id="f-clave" type="password" placeholder="mínimo 6 caracteres"
-    style="width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"
-    onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
-</div>
-<div>
-  <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;">Tu número de WhatsApp</label>
-  <div style="display:flex;gap:8px;align-items:center;">
-    <div style="padding:12px 14px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:9px;font-size:13px;color:var(--text2);font-family:'DM Mono',monospace;white-space:nowrap;">🇨🇴 +57</div>
-    <input id="f-wsp" type="tel" placeholder="3001234567"
-      style="flex:1;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg3);color:var(--text);outline:none;transition:border-color .2s;"
-      onfocus="this.style.borderColor='var(--accent)';this.style.background='#fff'"
-      onblur="this.style.borderColor='var(--border2)';this.style.background='var(--bg3)'">
-  </div>
-</div>
-      <button onclick="enviarSolicitud()" id="btnEnviar" style="
-        width:100%;padding:15px;
-        background:var(--accent);color:#fff;
-        border:none;border-radius:9px;
-        font-size:15px;font-weight:700;
-        cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;
-        transition:all .2s;margin-top:4px;
-        display:flex;align-items:center;justify-content:center;gap:8px;
-      " onmouseover="this.style.background='#007a55';this.style.transform='translateY(-1px)'"
-         onmouseout="this.style.background='var(--accent)';this.style.transform=''">
-        Enviar solicitud →
-      </button>
-
-      <div style="font-size:11px;color:var(--text3);text-align:center;font-family:'DM Mono',monospace;">
-        Te activamos el acceso en menos de 24 horas
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
 function abrirModal() {
-  const m = document.getElementById('modalAcceso');
-  m.style.display = 'flex';
+  document.getElementById('modalAcceso').style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
 function cerrarModal() {
@@ -786,7 +559,8 @@ function cerrarModal() {
 document.getElementById('modalAcceso').addEventListener('click', function(e) {
   if (e.target === this) cerrarModal();
 });
-  async function enviarSolicitud() {
+
+async function enviarSolicitud() {
   const nombre    = document.getElementById('f-nombre').value.trim();
   const negocio   = document.getElementById('f-negocio').value.trim();
   const tipo      = document.getElementById('f-tipo').value;
@@ -823,12 +597,15 @@ document.getElementById('modalAcceso').addEventListener('click', function(e) {
       window.location.href = '/login?nuevo=1';
     } else {
       alert('Error: ' + data.error);
-      btn.textContent = 'Enviar solicitud →';
+      btn.textContent = 'Crear mi cuenta →';
       btn.disabled = false;
     }
   } catch(e) {
     alert('Error de conexión. Intenta de nuevo.');
-    btn.textContent = 'Enviar solicitud →';
+    btn.textContent = 'Crear mi cuenta →';
     btn.disabled = false;
   }
 }
+</script>
+</body>
+</html>
